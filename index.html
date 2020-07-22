@@ -13,8 +13,6 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="Edgecloudsim Java Algorithm">
   <meta name="author" content="">
@@ -44,11 +42,11 @@
 
 
 <body>
-  <header style="height: 75vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>九流人</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -66,7 +64,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/">
-                
+                <i class="iconfont icon-home-fill"></i>
                 首页
               </a>
             </li>
@@ -78,7 +76,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
-                
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
@@ -90,7 +88,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
-                
+                <i class="iconfont icon-category-fill"></i>
                 分类
               </a>
             </li>
@@ -102,7 +100,7 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
-                
+                <i class="iconfont icon-tags-fill"></i>
                 标签
               </a>
             </li>
@@ -114,20 +112,8 @@
           
             <li class="nav-item">
               <a class="nav-link" href="/about/">
-                
+                <i class="iconfont icon-user-fill"></i>
                 关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                
-                友链
               </a>
             </li>
           
@@ -157,6 +143,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -166,7 +156,7 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
@@ -258,13 +248,6 @@ Quick</div>
     
 
     
-  <!-- 备案信息 -->
-  <div class="beian">
-    <a href="http://beian.miit.gov.cn/" target="_blank"
-       rel="nofollow noopener">苏ICP备18025686号</a>
-    
-  </div>
-
 
     
   </div>
@@ -301,7 +284,7 @@ Quick</div>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "&nbsp;",
+        "An elegant Material-Design theme for Hexo&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
