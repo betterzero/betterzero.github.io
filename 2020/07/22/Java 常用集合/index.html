@@ -19,7 +19,7 @@
   <meta name="description" content="Edgecloudsim Java Algorithm">
   <meta name="author" content="">
   <meta name="keywords" content="">
-  <title>Java常用集合 - 九流人</title>
+  <title>Java 常用集合 - 九流人</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,7 +160,7 @@
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
-                Java常用集合
+                Java 常用集合
               
             </span>
 
@@ -240,8 +240,8 @@
 </ul>
 <p><strong>Map</strong>允许按照某个键来访问元素。Map集合由两个集合构成：键集合，值集合。键集合是Set类型，不能有重复的元素。值集合是Collection类型，可以有重复的元素。</p>
 <p>每种集合的通用逻辑，都被抽象到相应的抽象类之中，比如 AbstractList 就集中了各种 List 操作的通用部分。这些集合不是完全孤立的，例如LinkedList 实现了 List 和 Deque。</p>
-<p><img src="D:%5Cblog%5Csource%5Cimage%5Cjava_collection.png" srcset="/img/loading.gif" alt=""></p>
-<p><img src="D:%5Cblog%5Csource%5Cimage%5Cjava_map.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="java_collection.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="java_map.png" srcset="/img/loading.gif" alt=""></p>
 <p><strong>注：</strong></p>
 <ul>
 <li>Iterator通用迭代器、ListIterator针对 List 特化的迭代器</li>
@@ -249,7 +249,7 @@
 <li>Collections常用算法类、Arrays静态数组的排序、查找算法</li>
 </ul>
 <h2 id="Java-主要集合类型"><a href="#Java-主要集合类型" class="headerlink" title="Java 主要集合类型"></a>Java 主要集合类型</h2><p>重点关注常用的实现类，掌握对应的数据结构、算法，能够根据不同的场景，进行具体的技术选择。</p>
-<p><img src="D:%5Cblog%5Csource%5Cimage%5Cjava_common_collection.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="java_common_collection.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>Vector、ArrayList 和 LinkedList 实现了 List，是<strong>有序集合</strong>。都提供按照位置进行定位、添加或者删除的操作，提供迭代器以遍历其内容等。但因为具体的设计区别，在行为、性能、线程安全等方面，表现又有很大不同。</p>
 <ul>
 <li>Vector 是 Java 早期提供的<strong>线程安全的动态数组</strong>，内部使用<strong>对象数组</strong>来保存数据。如果不需要线程安全，并不建议选择，毕竟同步有额外开销。可以根据需要自动的增加容量，当数组已满时，会创建新的数组，并拷贝原有数组数据；</li>
@@ -305,7 +305,7 @@
 <li>树化 。</li>
 </ul>
 <p>HashMap 内部的结构如下图，它可以看作是<strong>数组和链表结合组成</strong>的复合结构，数组被分为一个个<strong>桶</strong>，通过<strong>哈希值决定键值对在这个数组的寻址</strong>；<strong>哈希值相同的键值对，则以链表形式存储</strong>。需要注意的是，如果链表大小超过阈值（TREEIFY_THRESHOLD, 8），链表就会被改造为树形结构。</p>
-<p><img src="D:%5Cblog%5Csource%5Cimage%5Chash_buckets.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="hash_buckets.png" srcset="/img/loading.gif" alt=""></p>
 <h5 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h5><p>putVal 方法逻辑比较集中，从初始化、扩容到树化都和它有关，阅读源码时需要多加关注。</p>
 <pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> V <span class="hljs-title">put</span><span class="hljs-params">(K key, V value)</span> </span>&#123;
     <span class="hljs-keyword">return</span> putVal(hash(key), key, value, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">true</span>);
