@@ -232,7 +232,7 @@
 <li>对于<strong>大规模复杂的程序的开发</strong>，程序的处理流程并非单一的一条主线，而是错综复杂的网状结构。面向对象编程更能应对这种复杂类型的程序开发；</li>
 <li>面向对象编程具有更加<strong>丰富的特性</strong>，如封装、抽象、继承、多态。代码易扩展、易复用、易维护；</li>
 </ul>
-<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>封装主要关于<strong>信息隐藏、数据保护</strong>。编程语言需要提供<strong>访问权限控制</strong>这样的语法机制来支持。Java 使用访问控制符来保护对<strong>类、变量、方法和构造方法</strong>的访问。Java 支持 4 种不同的访问权限：</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="访问权限控制"><a href="#访问权限控制" class="headerlink" title="访问权限控制"></a>访问权限控制</h3><p>封装主要关于<strong>信息隐藏、数据保护</strong>。编程语言需要提供<strong>访问权限控制</strong>这样的语法机制来支持。Java 使用访问控制符来保护对<strong>类、变量、方法和构造方法</strong>的访问。Java 支持 4 种不同的访问权限：</p>
 <ul>
 <li><strong>private</strong> : 访问权限限制的最窄的修饰符。同一类内可见。使用对象：变量、方法。 <strong>不能修饰类（外部类）</strong></li>
 <li><strong>default</strong> (默认）: 通常称为“默认访问权限“或者“包访问权限”，不使用任何修饰符。同一包内可见。使用对象：类、接口、变量、方法。</li>
@@ -249,9 +249,9 @@
 <p>换一个角度考虑，定义类的方法的时候，不要暴露太多的实现细节，以保证在修改方法的实现的时候，不用再修改其定义。</p>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承用来表示<strong>类之间的 is-a 关系</strong>，比如猫是一种哺乳动物。继承可以分为两种模式，<strong>单继承和多继承</strong>。</p>
 <p>Java 使用 <strong>extends</strong> 关键字来实现继承，C++ 使用冒号（class B : public A），Python 使用 paraentheses()。有些编程语言只支持单继承，不支持多重继承，比如 Java。有些编程语言两种方式都支持，比如 C++、Python。</p>
-<h3 id="继承的意义"><a href="#继承的意义" class="headerlink" title="继承的意义"></a>继承的意义</h3><p>继承最大的优点是<strong>代码复用</strong>。假如两个类有一些相同的属性和方法，就可以将这些相同的部分，抽取到父类中，让两个子类继承父类。两个子类可以重用父类中的代码。不过，通过其他方式，比如利用<strong>组合关系</strong>而不是<strong>继承关系</strong>，也可以达到代码复用的目的。</p>
-<h3 id="Java单继承"><a href="#Java单继承" class="headerlink" title="Java单继承"></a>Java单继承</h3><p>多重继承存在钻石问题，即菱形继承。假设类 B 和类 C 继承自类 A，都重写了类 A 中的同一个方法，而类 D 同时继承了类 B 和类 C，那么此时类 D 会继承 B、C 的方法，那对于 B、C 重写的 A 中的方法，类 D 继承哪一个就无法确定。</p>
+<h3 id="菱形继承"><a href="#菱形继承" class="headerlink" title="菱形继承"></a>菱形继承</h3><p>多重继承存在钻石问题，即菱形继承。假设类 B 和类 C 继承自类 A，都重写了类 A 中的同一个方法，而类 D 同时继承了类 B 和类 C，那么此时类 D 会继承 B、C 的方法，那对于 B、C 重写的 A 中的方法，类 D 继承哪一个就无法确定。</p>
 <p>Java支持多接口实现，因为接口中的方法是抽象的，即便一个类实现了多个接口，且这些接口中存在同名方法，但在实现接口的时候，这个同名方法需要由这个实现类自己来实现，所以避免了二义性的问题。</p>
+<h3 id="继承的意义"><a href="#继承的意义" class="headerlink" title="继承的意义"></a>继承的意义</h3><p>继承最大的优点是<strong>代码复用</strong>。假如两个类有一些相同的属性和方法，就可以将这些相同的部分，抽取到父类中，让两个子类继承父类。两个子类可以重用父类中的代码。不过，通过其他方式，比如利用<strong>组合关系</strong>而不是<strong>继承关系</strong>，也可以达到代码复用的目的。</p>
 <h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>多态是同一个行为具有多个不同表现形式或形态的能力，同一个接口，使用不同的实例而执行不同操作。<strong>子类可以替换父类，在实际的代码运行过程中，调用子类的方法实现</strong>。</p>
 <h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><h4 id="继承-方法重写"><a href="#继承-方法重写" class="headerlink" title="继承 + 方法重写"></a>继承 + 方法重写</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DynamicArray</span> </span>&#123;
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> DEFAULT_CAPACITY = <span class="hljs-number">10</span>;
@@ -361,7 +361,7 @@
 <p>Java 通过<strong>继承实现多态特性</strong>，必须要求两个<strong>类之间有继承关系</strong>。通过<strong>接口实现多态特性</strong>，<strong>类必须实现对应的接口</strong>。</p>
 <h3 id="多态的意义"><a href="#多态的意义" class="headerlink" title="多态的意义"></a>多态的意义</h3><p>多态特性能<strong>提高代码的可扩展性和复用性</strong>。利用多态，一个 print() 函数可以实现遍历打印不同类型集合的数据。当需要再增加一种要遍历打印的类型的时候，比如 HashMap，只需让 HashMap 实现 Iterator 接口，重新实现自己的 hasNext()、next() 等方法就可以了，不需要改动 print() 函数的代码，提高了代码的可扩展性。</p>
 <p>多态也是很多设计模式、设计原则、编程技巧的代码实现基础，比如策略模式、基于接口而非实现编程、依赖倒置原则、里式替换原则、利用多态去掉冗长的 if-else 语句等等。</p>
-<h1 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h1><h2 id="违反面向对象编程风格的典型代码设计"><a href="#违反面向对象编程风格的典型代码设计" class="headerlink" title="违反面向对象编程风格的典型代码设计"></a>违反面向对象编程风格的典型代码设计</h2><h3 id="滥用-getter、setter-方法"><a href="#滥用-getter、setter-方法" class="headerlink" title="滥用 getter、setter 方法"></a>滥用 getter、setter 方法</h3><ul>
+<h1 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h1><h2 id="违反OOP风格的代码设计"><a href="#违反OOP风格的代码设计" class="headerlink" title="违反OOP风格的代码设计"></a>违反OOP风格的代码设计</h2><h3 id="滥用-getter、setter-方法"><a href="#滥用-getter、setter-方法" class="headerlink" title="滥用 getter、setter 方法"></a>滥用 getter、setter 方法</h3><ul>
 <li>设计实现类的时候，除非真的需要，否则尽量不要给属性定义 setter 方法；</li>
 <li>尽管 getter 方法相对 setter 方法要安全些，但是如果返回的是集合容器，也要防范集合内部数据被修改的风险。</li>
 </ul>
@@ -616,7 +616,7 @@
         listClass: 'tocbot-list',
         isCollapsedClass: 'tocbot-is-collapsed',
         collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 6,
+        collapseDepth: 2,
         scrollSmooth: true,
         headingsOffset: -boardTop
       });
