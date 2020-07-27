@@ -226,7 +226,7 @@
               </p>
             
             <article class="markdown-body">
-              <p>软件并发已经成为现代软件开发的基础能力，而 Java 精心设计的高效并发机制，是构建大规模应用的基础之一。本文介绍 Java 并发编程基础知识。主要内容为 线程生命周期、Java 中如何实现线程、synchronized与锁、volatile 和线程池。</p>
+              <p>并发成为现代软件开发的基础能力，Java 精心设计的高效并发机制，是构建大规模应用的基础之一。本文介绍 Java 并发编程基础知识。主要内容为 线程生命周期、如何实现线程、synchronized与锁、volatile、线程池、并发包、CAS与原子操作。</p>
 <h1 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程是<strong>应用程序在内存中分配的空间，也就是正在运行的程序</strong>，各个进程之间互不干扰。同时进程保存着程序每一个时刻运行的状态。进程的出现，使操作系统的性能大大提升，但是如果一个进程在一段时间只执行一个任务，那么当进程有多个子任务时，只能逐个执行这些子任务，效率较低。</p>
 <h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>为了提高 CPU 和 IO 设备的综合利用率，线程个概念被提出并应用。线程是一个比进程更小的执行单位，一个进程包含了多个线程，同类的多个线程共享进程的<strong>堆</strong>和<strong>方法区</strong>资源，而<strong>程序计数器</strong>、<strong>虚拟机栈</strong>和<strong>本地方法栈</strong>是私有的，每个线程负责一个单独的子任务。</p>
 <h2 id="进程和线程的异同"><a href="#进程和线程的异同" class="headerlink" title="进程和线程的异同"></a>进程和线程的异同</h2><ul>
@@ -422,7 +422,7 @@
 </ul>
 <p>只要调用了这两个关闭方法的其中一个，isShutdown 方法就会返回 true。当所有的任务都已关闭后, 才表示线程池关闭成功，这时调用 isTerminaed 方法会返回 true。至于调用哪一种方法来关闭线程池，应该由提交到线程池的任务特性决定。通常调用 shutdown 来关闭线程池，如果任务不一定要执行完，则可以调用 shutdownNow。</p>
 <h3 id="线程池工作流程"><a href="#线程池工作流程" class="headerlink" title="线程池工作流程"></a>线程池工作流程</h3><p>线程池的主要工作流程如下图所示：</p>
-<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.jpg" srcset="/img/loading.gif" alt=""></p>
 <p>当提交一个新任务到线程池时，线程池的处理流程如下：</p>
 <ol>
 <li>首先线程池判断<strong>基本线程池</strong>是否已满？没满，创建一个工作线程来执行任务，否则：</li>
@@ -447,7 +447,7 @@
 <p>线程安全的实现方式有简单的 <strong>synchronize</strong> 方式，也有更加精细化的，比如<strong>基于分离锁实现的 ConcurrentHashMap</strong> 等并发实现等。具体选择要看开发的场景需求。</p>
 <h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><p><strong>Java 1.6</strong> 版本的ConcurrentHashMap：</p>
 <p>ConcurrentHashMap 由 Segment 数组结构和 HashEntry 数组结构组成。Segment 是一种可重入锁 ReentrantLock，在 ConcurrentHashMap 里扮演锁的角色，<strong>HashEntry 则用于存储键值对数据</strong>。<strong>一个 ConcurrentHashMap 里包含一个 Segment 数组</strong>，Segment 的结构和 HashMap 类似，是一种数组和链表结构， <strong>一个 Segment 里包含一个 HashEntry 数组</strong>，每个 HashEntry 是一个链表结构的元素， 每个 Segment 守护者一个 HashEntry 数组里的元素，当对 HashEntry 数组的数据进行修改时，必须首先获得它对应的 Segment 锁。结构如下图所示：</p>
-<p><img src="ConcurrentHashMap.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="ConcurrentHashMap.jpg" srcset="/img/loading.gif" alt=""></p>
 <p><strong>Java 8</strong> 和之后的版本中，ConcurrentHashMap：</p>
 <ul>
 <li>总体结构上，它的内部存储和 HashMap 结构非常相似，同样是大的桶（bucket）数组，内部也是的链表结构，同步的粒度要更细致一些（锁的颗粒度，是加在链表头上的）；</li>
