@@ -227,6 +227,10 @@
             
             <article class="markdown-body">
               <p>并发成为现代软件开发的基础能力，Java 精心设计的高效并发机制，是构建大规模应用的基础之一。本文介绍 Java 并发编程基础知识。主要内容为 线程生命周期、如何实现线程、synchronized与锁、volatile、线程池、并发包、CAS与原子操作。</p>
+<a id="more"></a>
+
+
+
 <h1 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程是<strong>应用程序在内存中分配的空间，也就是正在运行的程序</strong>，各个进程之间互不干扰。同时进程保存着程序每一个时刻运行的状态。进程的出现，使操作系统的性能大大提升，但是如果一个进程在一段时间只执行一个任务，那么当进程有多个子任务时，只能逐个执行这些子任务，效率较低。</p>
 <h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>为了提高 CPU 和 IO 设备的综合利用率，线程个概念被提出并应用。线程是一个比进程更小的执行单位，一个进程包含了多个线程，同类的多个线程共享进程的<strong>堆</strong>和<strong>方法区</strong>资源，而<strong>程序计数器</strong>、<strong>虚拟机栈</strong>和<strong>本地方法栈</strong>是私有的，每个线程负责一个单独的子任务。</p>
 <h2 id="进程和线程的异同"><a href="#进程和线程的异同" class="headerlink" title="进程和线程的异同"></a>进程和线程的异同</h2><ul>
