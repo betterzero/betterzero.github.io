@@ -242,7 +242,9 @@
 <li><p>支持随机访问，但插入、删除操作比较低效；</p>
 </li>
 </ul>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><h4 id="随机访问"><a href="#随机访问" class="headerlink" title="随机访问"></a>随机访问</h4><p>一维寻址公式：<br>$$<br>a[k]<em>{address} = base</em>{address} + k * type_size<br>$$<br>二维寻址公式，对于 m<em>n 的数组：<br>$$<br>a[i][j]<em>{address} = base</em>{address} + (i</em>n+j) * type_size<br>$$<br>所以，根据下标随机访问的时间复杂度为 O(1)。</p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><h4 id="随机访问"><a href="#随机访问" class="headerlink" title="随机访问"></a>随机访问</h4><p>一维寻址公式：a[k]_address = base_address + k * type_size；</p>
+<p>二维寻址公式，对于 m*n 的数组：a[i][j]_address = base_address + (i*n+j) * type_size；</p>
+<p>所以，根据下标随机访问的时间复杂度为 O(1)；</p>
 <h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><ul>
 <li>开头插入：最坏时间复杂度是O(n)；</li>
 <li>平均情况时间复杂度： (1+2+…n)/n = O(n)；</li>
