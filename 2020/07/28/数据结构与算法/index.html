@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.7k 字
+      11.6k 字
     </span>
   
 
@@ -236,7 +236,7 @@
 <li>掌握常用的基础数据结构，包括内部实现、常用操作的时间和空间复杂度；</li>
 <li>针对不同的场景，能够选择较为合适的数据结构；</li>
 </ul>
-<h1 id="常用数据结构"><a href="#常用数据结构" class="headerlink" title="常用数据结构"></a>常用数据结构</h1><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<h1 id="常用数据结构"><a href="#常用数据结构" class="headerlink" title="常用数据结构"></a>常用数据结构</h1><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ul>
 <li><p>用一组连续的内存空间，存储一组具有相同类型的数据；</p>
 </li>
 <li><p>支持随机访问，但插入、删除操作比较低效；</p>
@@ -269,26 +269,26 @@
 <li><p>底层的开发适合直接使用数组，更加高效；</p>
 </li>
 </ul>
-<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><ul>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><ul>
 <li>通过指针将一组零散的内存块串联起来使用；</li>
 <li>插入、删除数据快；</li>
 </ul>
-<h3 id="操作-1"><a href="#操作-1" class="headerlink" title="操作"></a>操作</h3><h4 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h4><h5 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h5><p>根据指针一个节点一个节点依次遍历，直到找到目标节点。</p>
-<h5 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h5><p>只要考虑相邻节点的指针改变，时间复杂度是O(1)</p>
-<h4 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h4><h5 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h5><p>一种特殊的单链表，尾节点指针指向链表的头节点。</p>
-<h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><h5 id="概念-3"><a href="#概念-3" class="headerlink" title="概念"></a>概念</h5><ul>
+<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p>根据指针一个节点一个节点依次遍历，直到找到目标节点。</p>
+<h4 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h4><p>只要考虑相邻节点的指针改变，时间复杂度是O(1)</p>
+<h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><p>一种特殊的单链表，尾节点指针指向链表的头节点。</p>
+<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><ul>
 <li><p>支持两个方向，后继指针 next 指向后面的节点，前驱指针 pre 指向前面的节点；</p>
 </li>
 <li><p>查找、插入、删除的效率都比单链表高；</p>
 </li>
 </ul>
-<h5 id="删除“值等于给定值”的节点"><a href="#删除“值等于给定值”的节点" class="headerlink" title="删除“值等于给定值”的节点"></a>删除“值等于给定值”的节点</h5><ul>
+<h4 id="删除“值等于给定值”的节点"><a href="#删除“值等于给定值”的节点" class="headerlink" title="删除“值等于给定值”的节点"></a>删除“值等于给定值”的节点</h4><ul>
 <li><p>从头节点开始遍历，依次对比，直到找到值等于给定值的节点，通过指针操作将其删除；</p>
 </li>
 <li><p>时间复杂度为O(n)；</p>
 </li>
 </ul>
-<h5 id="删除给定指针指向的节点"><a href="#删除给定指针指向的节点" class="headerlink" title="删除给定指针指向的节点"></a>删除给定指针指向的节点</h5><ul>
+<h4 id="删除给定指针指向的节点"><a href="#删除给定指针指向的节点" class="headerlink" title="删除给定指针指向的节点"></a>删除给定指针指向的节点</h4><ul>
 <li>对于单链表，已经知道了要删除的节点，但是要删除某个结点 q 需要知道其前驱结点，而单链表不可以直接获取前驱结点，所以为了找到前驱结点，要从头结点开始遍历链表，直到 p-&gt;next=q，说明 p 是 q 的前驱结点。时间复杂度为O(n)；</li>
 <li>对于双向链表，因为节点已经保存了前驱结点的指针，不需要像单链表那样遍历。所以，O(1) 的时间复杂度就可以完成操作；</li>
 </ul>
@@ -300,7 +300,7 @@
 <li><p>循环链表适合要处理的数据具有环形结构的特点，比如约瑟夫环问题；</p>
 </li>
 </ul>
-<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><h3 id="概念-4"><a href="#概念-4" class="headerlink" title="概念"></a>概念</h3><p>一种操作受限的线性表，只允许在一端插入和删除数据，特点是FILO。</p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>一种操作受限的线性表，只允许在一端插入和删除数据，特点是FILO。</p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
 <li><p>只需要一个栈顶指针；</p>
 </li>
@@ -401,7 +401,7 @@ public class StackBasedOnLinkedList &#123;
 
 
 
-<h3 id="操作-2"><a href="#操作-2" class="headerlink" title="操作"></a>操作</h3><ul>
+<h3 id="操作-1"><a href="#操作-1" class="headerlink" title="操作"></a>操作</h3><ul>
 <li>不管是顺序栈还是链式栈，存储数据只需要一个大小为 n 的数组。在<strong>入栈</strong>和<strong>出栈</strong>过程中，只需要一两个临时变量存储空间，所以<strong>空间复杂度是 O(1)</strong>；<ul>
 <li><strong>注：</strong>这里存储数据需要一个大小为 n 的数组，并不是说空间复杂度就是 O(n)。因为这 n 个空间是必须的，无法省掉。<strong>所以空间复杂度，是指除了原本的数据存储空间外，算法运行还需要额外的存储空间</strong>；</li>
 </ul>
@@ -474,7 +474,7 @@ public class StackBasedOnLinkedList &#123;
 <li>当点击前进按钮时，依次从栈 Y 中取出数据，放入栈 X 中；</li>
 <li>当栈 X 中没有数据时，就说明没有页面可以继续后退浏览了；当栈 Y 中没有数据，那就说明没有页面可以点击前进按钮浏览了；</li>
 </ul>
-<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h3 id="概念-5"><a href="#概念-5" class="headerlink" title="概念"></a>概念</h3><p>一种操作受限的线性表数据结构，特性是FIFO。</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>一种操作受限的线性表数据结构，特性是FIFO。</p>
 <h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><p>需要两个指针，head指针指向队头，tail指针指向队尾。</p>
 <h3 id="顺序队列"><a href="#顺序队列" class="headerlink" title="顺序队列"></a>顺序队列</h3><ul>
 <li><p>用数组实现的队列；</p>
@@ -615,7 +615,7 @@ public class StackBasedOnLinkedList &#123;
 
 
 
-<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><h4 id="概念-6"><a href="#概念-6" class="headerlink" title="概念"></a>概念</h4><p>数组首位相连成环。用数组来实现队列的时候，在 tail==n 时，会有<strong>数据搬移</strong>操作，这样入队操作性能就会受到影响。</p>
+<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>数组首位相连成环。用数组来实现队列的时候，在 tail==n 时，会有<strong>数据搬移</strong>操作，这样入队操作性能就会受到影响。</p>
 <h4 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h4><p>确定好队空和队满的判定条件：</p>
 <ul>
 <li>队空：head == tail；</li>
@@ -667,7 +667,7 @@ public class StackBasedOnLinkedList &#123;
 <li><p>队列为空时，从队头取数据会被阻塞；</p>
 </li>
 </ul>
-<h3 id="并发队列"><a href="#并发队列" class="headerlink" title="并发队列"></a>并发队列</h3><h4 id="概念-7"><a href="#概念-7" class="headerlink" title="概念"></a>概念</h4><p>线程安全的队列。</p>
+<h3 id="并发队列"><a href="#并发队列" class="headerlink" title="并发队列"></a>并发队列</h3><p>线程安全的队列。</p>
 <h4 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h4><p>方式一：直接在enqueue()、dequeue() 上加锁，锁粒度大并发度会比较低下，同一时刻仅允许一个存取数操作。</p>
 <p>方式二：利用 CAS 原子操作，可以实现非常高效的并发队列。</p>
 <h3 id="应用-3"><a href="#应用-3" class="headerlink" title="应用"></a>应用</h3><ul>
@@ -680,8 +680,8 @@ public class StackBasedOnLinkedList &#123;
 <li><p>高性能队列 Disruptor、Linux环形缓存，都用到了循环并发队列。Java concurrent 并发包利用 ArrayBlockingQueue 来实现公平锁等。</p>
 </li>
 </ul>
-<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="概念-8"><a href="#概念-8" class="headerlink" title="概念"></a>概念</h2><p>每个节点最多有两个子节点，即左子节点和右子节点。</p>
-<h2 id="计算公式"><a href="#计算公式" class="headerlink" title="计算公式"></a>计算公式</h2><ul>
+<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>每个节点最多有两个子节点，即左子节点和右子节点。</p>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><ul>
 <li><p>节点高度 = 节点到叶子节点的最长路径（边数）；</p>
 </li>
 <li><p>节点深度 =  根节点到这个节点所经历的边的个数；</p>
@@ -839,7 +839,7 @@ public class StackBasedOnLinkedList &#123;
 <li>中序遍历：左子树-&gt;根-&gt;右子树；</li>
 <li>后序遍历：左子树-&gt;右子树-&gt;根；</li>
 </ul>
-<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><h2 id="概念-9"><a href="#概念-9" class="headerlink" title="概念"></a>概念</h2><ul>
+<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><ul>
 <li>一个完全二叉树；</li>
 <li>每一个节点的值都必须大于等于（或小于等于）其子树中的每个节点的值；</li>
 </ul>
@@ -849,15 +849,7 @@ public class StackBasedOnLinkedList &#123;
 <li>其左子节点的下标为 i∗2；</li>
 <li>其右子节点的下标为 i∗2+1；</li>
 </ul>
-<h2 id="操作-3"><a href="#操作-3" class="headerlink" title="操作"></a>操作</h2><p>插入一个元素和删除堆顶元素</p>
-<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><ul>
-<li><p>借助堆实现的排序算法；</p>
-</li>
-<li><p>时间复杂度非常稳定，是O(nlogn)；</p>
-</li>
-<li><p>原地排序算法</p>
-</li>
-</ul>
+<h2 id="操作-2"><a href="#操作-2" class="headerlink" title="操作"></a>操作</h2><p>插入一个元素和删除堆顶元素。</p>
 <h2 id="基于堆实现排序"><a href="#基于堆实现排序" class="headerlink" title="基于堆实现排序"></a>基于堆实现排序</h2><ol>
 <li>建堆<ul>
 <li>思路1：从前往后处理数组，并且每个数据插入堆中时，都是从下往上堆化；</li>
@@ -871,7 +863,7 @@ public class StackBasedOnLinkedList &#123;
 </ol>
 </li>
 </ol>
-<h2 id="快速排序与堆排序"><a href="#快速排序与堆排序" class="headerlink" title="快速排序与堆排序"></a>快速排序与堆排序</h2><ul>
+<h3 id="快速排序与堆排序"><a href="#快速排序与堆排序" class="headerlink" title="快速排序与堆排序"></a>快速排序与堆排序</h3><ul>
 <li><p>堆排序数据访问的方式没有快速排序友好</p>
 <ul>
 <li><p>对于快速排序来说，数据是顺序访问的；</p>
@@ -1000,7 +992,7 @@ public class StackBasedOnLinkedList &#123;
 <li>对这<strong>10亿个关键词分片</strong>之后，每个文件都只有 1 亿的关键词，去除掉重复的，可能就只有 1000 万个，每个关键词平均 50 个字节，所以总的大小就是 500MB。1GB 的内存完全可以放得下；</li>
 <li><strong>针对每个包含 1 亿条搜索关键词的文件，利用散列表和堆，分别求出 Top 10</strong>，然后把这个 10 个 Top 10 放在一块，然后取这 100 个关键词中，出现次数最多的 10 个关键词，这就是这 10 亿数据中的 Top 10 最频繁的搜索关键词了；</li>
 </ul>
-<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h2 id="概念-10"><a href="#概念-10" class="headerlink" title="概念"></a>概念</h2><p>一种非线性表数据结构，比树要复杂</p>
+<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><p>一种非线性表数据结构，比树要复杂</p>
 <h2 id="分类-1"><a href="#分类-1" class="headerlink" title="分类"></a>分类</h2><ul>
 <li><p>有向图</p>
 </li>
@@ -1018,7 +1010,7 @@ public class StackBasedOnLinkedList &#123;
 <li>实际开发中，用红黑树或者其他动态数据结构，比如跳表、散列表等，更加快速地查找两个顶点之间是否存在边；</li>
 <li>将链表改成有序动态数组，通过二分查找的方法快速定位两个顶点之间是否存在边；</li>
 </ul>
-<h1 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h1><h2 id="概念-11"><a href="#概念-11" class="headerlink" title="概念"></a>概念</h2><ul>
+<h1 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h1><ul>
 <li><p>通过散列函数把元素的键值映射为下标，然后将数据存储在数组中对应下标的位置；</p>
 </li>
 <li><p>当按照键值查询元素时，可以用同样的散列函数，将键值转化为数组下标，从对应的数组下标的位置取元素；</p>
@@ -1026,7 +1018,7 @@ public class StackBasedOnLinkedList &#123;
 <li><p>数组的一种扩展，由数组演化而来。没有数组，就没有散列表。</p>
 </li>
 </ul>
-<h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><h3 id="概念-12"><a href="#概念-12" class="headerlink" title="概念"></a>概念</h3><p>hash(key)（key表示元素的键值，hash(key) 的值表示经过散列函数计算得到的散列值）。</p>
+<h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>hash(key)（key表示元素的键值，hash(key) 的值表示经过散列函数计算得到的散列值）。</p>
 <h3 id="实现-5"><a href="#实现-5" class="headerlink" title="实现"></a>实现</h3><p>散列函数计算得到的散列值是一个非负整数。</p>
 <ul>
 <li><p>如果 key1 == key2, 那么 hash(key1) == hash(key2)</p>
@@ -1040,7 +1032,7 @@ public class StackBasedOnLinkedList &#123;
 <li><p>散列函数生成的值要尽可能随机并且均匀分布；</p>
 </li>
 </ul>
-<h2 id="装载因子"><a href="#装载因子" class="headerlink" title="装载因子"></a>装载因子</h2><h3 id="概念-13"><a href="#概念-13" class="headerlink" title="概念"></a>概念</h3><p>散列表的装载因子 = 填入表中的元素个数 / 散列表的长度；</p>
+<h2 id="装载因子"><a href="#装载因子" class="headerlink" title="装载因子"></a>装载因子</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>散列表的装载因子 = 填入表中的元素个数 / 散列表的长度；</p>
 <ul>
 <li>装填因子越大，说明空闲的位置越少，冲突越多，散列表的性能会下降；</li>
 </ul>
@@ -1048,7 +1040,7 @@ public class StackBasedOnLinkedList &#123;
 <li>当装载因子过大时，可以进行动态扩容，重新申请一个更大的散列表，将数据搬移到新散列表中；</li>
 <li>针对散列表的扩容，数据搬移操作比数组要复杂的多，需要通过散列函数重新计算每个数据的存储位置；</li>
 </ul>
-<h2 id="散列冲突"><a href="#散列冲突" class="headerlink" title="散列冲突"></a>散列冲突</h2><h3 id="开放寻址法"><a href="#开放寻址法" class="headerlink" title="开放寻址法"></a>开放寻址法</h3><h4 id="概念-14"><a href="#概念-14" class="headerlink" title="概念"></a>概念</h4><p>如果出现散列冲突，就重新探测一个空闲位置，将其插入。</p>
+<h2 id="散列冲突"><a href="#散列冲突" class="headerlink" title="散列冲突"></a>散列冲突</h2><h3 id="开放寻址法"><a href="#开放寻址法" class="headerlink" title="开放寻址法"></a>开放寻址法</h3><p>如果出现散列冲突，就重新探测一个空闲位置，将其插入。</p>
 <h4 id="应用-5"><a href="#应用-5" class="headerlink" title="应用"></a>应用</h4><p>数据量比较小，装载因子小的时候，适合采用开放寻址法。</p>
 <h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li><p>散列表中的数据都存储在数组中，可以有效地利用 CPU 缓存加快查询速度；</p>
@@ -1071,9 +1063,9 @@ public class StackBasedOnLinkedList &#123;
 </li>
 </ul>
 <h4 id="双重散列"><a href="#双重散列" class="headerlink" title="双重散列"></a>双重散列</h4><p>先用一组散列表中的第一个散列函数，计算得到的存储位置已经被占用，再用第二个散列函数，依次类推，直到找到空闲的存储位置。</p>
-<h3 id="链表法"><a href="#链表法" class="headerlink" title="链表法"></a>链表法</h3><h4 id="概念-15"><a href="#概念-15" class="headerlink" title="概念"></a>概念</h4><p>一种更加常用的散列冲突的解决办法，比开放寻址法简单很多。</p>
+<h3 id="链表法"><a href="#链表法" class="headerlink" title="链表法"></a>链表法</h3><p>一种更加常用的散列冲突的解决办法，比开放寻址法简单很多。</p>
 <p>每个“桶”（bucket）或者”槽“（slot）会对应一条链表。所有散列值相同的元素都放到相同槽位对应的链表中。</p>
-<h4 id="操作-4"><a href="#操作-4" class="headerlink" title="操作"></a>操作</h4><ul>
+<h4 id="操作-3"><a href="#操作-3" class="headerlink" title="操作"></a>操作</h4><ul>
 <li><p>插入时，只需要通过散列函数计算出对应的散列槽位，将其插入到对应的链表中即可；</p>
 </li>
 <li><p>查找、删除一个元素时，同样通过散列函数计算出对应的槽，遍历链表查找或者删除；</p>
@@ -1114,7 +1106,7 @@ public class StackBasedOnLinkedList &#123;
 <li><p>性能稳定，极度情况下，散列表的性能也不会退化到无法接受的情况；</p>
 </li>
 </ul>
-<h2 id="实现工业级散列表要点"><a href="#实现工业级散列表要点" class="headerlink" title="实现工业级散列表要点"></a>实现工业级散列表要点</h2><ul>
+<h3 id="实现工业级散列表要点"><a href="#实现工业级散列表要点" class="headerlink" title="实现工业级散列表要点"></a>实现工业级散列表要点</h3><ul>
 <li><p>设计一个合适的散列表；</p>
 </li>
 <li><p>定义装载因子的阈值，并且设计动态扩容策略；</p>
@@ -1122,7 +1114,7 @@ public class StackBasedOnLinkedList &#123;
 <li><p>选择合适的散列冲突解决方法；</p>
 </li>
 </ul>
-<h1 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h1><h2 id="概念-16"><a href="#概念-16" class="headerlink" title="概念"></a>概念</h2><ul>
+<h1 id="哈希算法"><a href="#哈希算法" class="headerlink" title="哈希算法"></a>哈希算法</h1><ul>
 <li><p>将任意长度的二进制值串映射为固定长度的二进制值串，这个映射的规则就是哈希算法；</p>
 </li>
 <li><p>通过原始数据映射之后得到的二进制值串就是哈希值；</p>
@@ -1154,7 +1146,7 @@ public class StackBasedOnLinkedList &#123;
 <li><p>分布式存储</p>
 </li>
 </ul>
-<h1 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h1><h2 id="概念-17"><a href="#概念-17" class="headerlink" title="概念"></a>概念</h2><ul>
+<h1 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h1><ul>
 <li><p>一种特殊的散列表；</p>
 </li>
 <li><p>通过数组下标来定位数据，访问效率非常高；</p>
