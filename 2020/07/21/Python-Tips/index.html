@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      3.4k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      46
        分钟
     </span>
   
@@ -221,16 +221,398 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年7月24日 上午
+                  本文最后更新于：2020年7月29日 上午
                 
               </p>
             
             <article class="markdown-body">
-              
+              <p>Python知识点整理。</p>
+<a id="more"></a>
+
+
+
+<h2 id="Python中的引用与拷贝"><a href="#Python中的引用与拷贝" class="headerlink" title="Python中的引用与拷贝"></a>Python中的引用与拷贝</h2><blockquote>
+<p>区别</p>
+<p>引用：旧瓶装旧酒<br>浅拷贝：新瓶装旧酒<br>深拷贝：新瓶装新酒</p>
+</blockquote>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>python中赋值符号“=”两边的对象是同一个对象，左边的对象可以看成是右边对象的一个引用。</p>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b=a
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a.append(<span class="hljs-string">'c'</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a <span class="hljs-keyword">is</span> b
+<span class="hljs-literal">True</span></code></pre>
+
+
+
+<p>a的值的变化会导致b的值也会变化，因为他们是同一个对象，共享同一块内存地址，b是a的引用。</p>
+<p><strong>判断两个变量是否是同一个对象的方法是用is</strong>，返回True则代表两个变量是同一个对象。 </p>
+<p>赋值是将一个对象的地址赋值给一个变量，让变量指向该地址。 </p>
+<h3 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h3><p>对象的拷贝是根据源对象生成一个新的对象，占用不同的内容存空间。一个对象值的变化，不会影响另外一个对象的值。拷贝又分潜拷贝和深拷贝。 </p>
+<h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><p>python中的copy模块可以实现对象的浅拷贝。 </p>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> copy
+<span class="hljs-meta">&gt;&gt;&gt; </span>a=[[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b=copy.copy(a)
+<span class="hljs-meta">&gt;&gt;&gt; </span>b <span class="hljs-keyword">is</span> a
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-literal">False</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>a.append(<span class="hljs-string">'c'</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>], <span class="hljs-string">'c'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a[<span class="hljs-number">0</span>].append(<span class="hljs-number">3</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>], <span class="hljs-string">'c'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> b[<span class="hljs-number">0</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-literal">True</span>
+
+<span class="hljs-comment"># b=a[:]会创建一个新的与a完全相同的对象，但是与a并不指向同一对象</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,[<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b = a[:]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a <span class="hljs-keyword">is</span> b
+<span class="hljs-literal">False</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>a.append(<span class="hljs-number">7</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>], <span class="hljs-number">7</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a[<span class="hljs-number">3</span>].append(<span class="hljs-number">9</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>], <span class="hljs-number">7</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a[<span class="hljs-number">3</span>] <span class="hljs-keyword">is</span> b[<span class="hljs-number">3</span>]
+<span class="hljs-literal">True</span>
+&gt;&gt;&gt;</code></pre>
+
+
+
+<p>通过例子可以看到通过copy模块的copy方法，根据对象a生成了一个新对象b，这一点可以通过is表达式的结果证明。 </p>
+<p>a.append(‘c’)之后，发现a和b的值不一样了，这是因为a和b指向两个不同的地址。对a的值的修改不会影响b的值。 但是a[0].append(3)之后，a[0]和b[0]却是一样的。这就是浅拷贝的效果。因为a[0] 和b[0]还是指向同一个地址。 </p>
+<p>浅拷贝是在另一块地址中创建一个新的变量或容器，但是容器内的元素的地址均是源对象的元素的地址的拷贝。也就是说新的容器中指向了旧的元素。</p>
+<h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><p>python的copy模块的deepcopy函数可以实现深拷贝。</p>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> copy
+<span class="hljs-meta">&gt;&gt;&gt; </span>a=[[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b=copy.deepcopy(a)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a <span class="hljs-keyword">is</span> b
+<span class="hljs-literal">False</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>a[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> b[<span class="hljs-number">0</span>]
+<span class="hljs-literal">False</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>a.append(<span class="hljs-string">'c'</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>], <span class="hljs-string">'c'</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a[<span class="hljs-number">0</span>].append(<span class="hljs-number">3</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b
+[[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>]]</code></pre>
+
+
+
+<p>由于b是a的深拷贝，所以a对象和b对象的内存地址不同，a对象和b对象包含的底层对象（a[0]a[1]b[0]b[1]）内存地址也不同。 </p>
+<p>对a对象的值的改变不会影响b对象的值，对a对象的底层对象的值的改变也不会影响b的底层对象的值。</p>
+<p>深拷贝是在另一块地址中创建一个新的变量或容器，同时容器内的元素的地址也是新开辟的，仅仅是值相同而已，是完全的副本。</p>
+<h3 id="二维数组初始化"><a href="#二维数组初始化" class="headerlink" title="二维数组初始化"></a>二维数组初始化</h3><p><a href="https://blog.csdn.net/yockie/article/details/46127829" target="_blank" rel="noopener">python创建二维数组</a></p>
+<pre><code class="hljs python"><span class="hljs-comment"># list * n—&gt;n shallow copies of list concatenated, n个list的浅拷贝的连接</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>dimen_list = [[<span class="hljs-number">0</span>] * <span class="hljs-number">3</span>] * <span class="hljs-number">4</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>dimen_list
+[[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]
+<span class="hljs-meta">&gt;&gt;&gt; </span>dimen_list[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>dimen_list
+[[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]]
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>lists = [[]] * <span class="hljs-number">3</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>lists
+[[], [], []]
+<span class="hljs-meta">&gt;&gt;&gt; </span>lists[<span class="hljs-number">0</span>].append(<span class="hljs-number">3</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>lists
+[[<span class="hljs-number">3</span>], [<span class="hljs-number">3</span>], [<span class="hljs-number">3</span>]]
+
+<span class="hljs-comment"># 需要用另一种方式创建多维数组,以免浅拷贝</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>size = <span class="hljs-number">3</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>lists = [[<span class="hljs-number">0</span> <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(size)] <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(size)]
+<span class="hljs-meta">&gt;&gt;&gt; </span>lists
+[[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]</code></pre>
+
+
+
+<h2 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h2><p>Python内置类型：主要有数字、序列、映射、类、实例和异常。 </p>
+<p><strong>数字类型</strong>：int, float, complex</p>
+<p><strong>迭代器类型</strong>：Python 支持对容器进行迭代。序列支持迭代方法。</p>
+<p><strong>生成器类型</strong>：Python 的 generator 提供了一种实现迭代器协议的便捷方式。</p>
+<p><strong>不可变序列类型</strong>：数字、布尔、元组tuple、range 类型表示不可变的数字序列、文本序列类型（字符串）str、bytes、frozenset</p>
+<p>注：由于许多主要二进制协议都基于 ASCII 文本编码，因此 bytes 对象提供了一些仅在处理 ASCII 兼容数据时可用，并且在许多特性上与字符串对象紧密相关的方法。 </p>
+<p><strong>可变序列类型</strong>：列表list、字典dic、set，不可以作为字典的key</p>
+<p>不可变序列类型普遍实现，而可变序列类型未实现的操作是对 <strong>hash()</strong> 内置函数的支持。也就是说，<strong>hash() 函数可以应用于数字、字符串和对象，但是不能直接应用于list、set、dictionary</strong>。 </p>
+<pre><code class="hljs python">列表解析式：[x*<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>)]  
+字典解析式：my_dict = &#123;i: i * i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>)&#125;  
+集合解析式：my_set = &#123;i * <span class="hljs-number">15</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">100</span>)&#125;
+字符串/列表逆序：
+<span class="hljs-meta">&gt;&gt;&gt; </span>str = <span class="hljs-string">"abc"</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>str[::<span class="hljs-number">-1</span>]    <span class="hljs-comment"># 原字符串不改变</span>
+<span class="hljs-string">'cba'</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-string">''</span>.join(reversed(str))  <span class="hljs-comment"># 原字符串不改变</span>
+<span class="hljs-string">'cba'</span>
+           
+<span class="hljs-meta">&gt;&gt;&gt; </span>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a[::<span class="hljs-number">-1</span>]      <span class="hljs-comment"># 原列表不改变 </span>
+[<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>a.reverse()  <span class="hljs-comment"># 原列表改变 </span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>a
+[<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]</code></pre>
+
+
+
+<p><strong>空对象</strong>：当函数无显示返回值时，会返回该对象。它不支持任何特殊的操作。空对象只有一种值 None (内置名称)。</p>
+<p><strong>优先队列的特点</strong>：队列的特点是先进先出，入队时，将新元素置于队尾巴，出队时，队头元素最先被移出。优先队列不再遵循先入先出的原则，而分为两种情况：1）最大优先队列，无论入队顺序如何，都是当前最大的元素出队；2）最小优先队列，无论入队顺序如何，都是当前最小的元素出队。</p>
+<p><strong>优先队列的实现</strong>：二叉堆有以下性质：1）最大堆的堆顶是整个堆中的最大元素；2) 最小堆的堆顶是整个堆中的最小元素。因此，可以用最大堆来实现最大优先队列，每一次入队操作就是堆的插入操作，每一次出队操作就是删除堆顶节点。二叉堆节点上浮和下沉的时间复杂度都是O(logn)，所以优先队列的入队和出队的时间复杂度也是O(logn)。</p>
+<p>python中heapq模块实现了最小堆。heapq有两种方式创建堆：1）使用一个空列表，然后使用heapq.heappush()方法将值加入堆中；2）使用heap.heapify(list)转换列表成为堆结构。 </p>
+<table>
+<thead>
+<tr>
+<th>heapify(heap)</th>
+<th>让列表具备堆特征</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>heappush(heap, x)</td>
+<td>将x压入堆中</td>
+</tr>
+<tr>
+<td>heappop(heap)</td>
+<td>从堆中弹出最小的元素</td>
+</tr>
+<tr>
+<td>heapreplace(heap, x)</td>
+<td>弹出最小的元素，并将x压入堆中</td>
+</tr>
+<tr>
+<td>nlargest(n, iter)</td>
+<td>返回iter中n个最大的元素</td>
+</tr>
+<tr>
+<td>nsmallest(n, iter)</td>
+<td>返回iter中n个最小的元素</td>
+</tr>
+</tbody></table>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><p><a href="https://www.runoob.com/python3/python3-func-enumerate.html" target="_blank" rel="noopener">enumerate() </a></p>
+<p>enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据下标和数据，一般用在 for 循环当中。 </p>
+<pre><code class="hljs python">&gt;&gt;&gt;seq = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>]
+&gt;&gt;&gt;<span class="hljs-keyword">for</span> i, element <span class="hljs-keyword">in</span> enumerate(seq):
+<span class="hljs-meta">... </span>   print(i, seq[i])
+<span class="hljs-meta">... </span>
+<span class="hljs-number">0</span> one
+<span class="hljs-number">1</span> two
+<span class="hljs-number">2</span> three</code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python3/python3-func-zip.html" target="_blank" rel="noopener">zip()</a></p>
+<p>zip() 函数将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的对象，这样做的好处是节约了不少的内存。可以使用 list() 转换来输出列表。如果各个迭代器的元素个数不一致，则返回列表长度与最短的对象相同，利用 ***** 号操作符，可以将元组解压为列表。</p>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>b = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>c = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>zipped = zip(a,b)  <span class="hljs-comment"># 返回一个对象</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>zipped
+&lt;zip object at <span class="hljs-number">0x103abc288</span>&gt;
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(zipped)       <span class="hljs-comment"># list() 转换为列表</span>
+[(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>), (<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), (<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)]
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(zip(a,c))     <span class="hljs-comment"># 元素个数与最短的列表一致</span>
+[(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>), (<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), (<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)]
+ 
+<span class="hljs-meta">&gt;&gt;&gt; </span>a1, a2 = zip(*zip(a,b))  <span class="hljs-comment"># 与 zip 相反，zip(*) 可理解为解压，返回二维矩阵式</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(a1)
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(a2)
+[<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]</code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python3/python3-func-reversed.html" target="_blank" rel="noopener">reversed(seq)</a></p>
+<p>返回一个反转的迭代器；参数：要转换的序列，可以是tuple, string, list 或 range。</p>
+<pre><code class="hljs python"><span class="hljs-comment"># 字符串</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>seqString = <span class="hljs-string">'Runoob'</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>print(list(reversed(seqString)))
+
+[<span class="hljs-string">'b'</span>, <span class="hljs-string">'o'</span>, <span class="hljs-string">'o'</span>, <span class="hljs-string">'n'</span>, <span class="hljs-string">'u'</span>, <span class="hljs-string">'R'</span>]</code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python/python-func-eval.html" target="_blank" rel="noopener">eval()</a></p>
+<p>eval() 函数用来执行一个字符串表达式，返回表达式的值。</p>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>x = <span class="hljs-number">7</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>eval( <span class="hljs-string">'3 * x'</span> )
+<span class="hljs-number">21</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>eval(<span class="hljs-string">'pow(2,2)'</span>)
+<span class="hljs-number">4</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>eval(<span class="hljs-string">'2 + 2'</span>)
+<span class="hljs-number">4</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>n=<span class="hljs-number">81</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>eval(<span class="hljs-string">"n + 4"</span>)
+<span class="hljs-number">85</span></code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python/python-func-bin.html" target="_blank" rel="noopener">bin()</a></p>
+<p>返回整数 int 或者长整数 long int 的二进制表示。 </p>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>bin(<span class="hljs-number">11</span>)
+<span class="hljs-string">'0b1011'</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>bin(<span class="hljs-number">20</span>)
+<span class="hljs-string">'0b10100'</span>
+str = 
+<span class="hljs-meta">&gt;&gt;&gt; </span>str = <span class="hljs-string">"1010"</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>int(str, base=<span class="hljs-number">2</span>)
+<span class="hljs-number">10</span></code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python/python-func-getattr.html" target="_blank" rel="noopener">getattr()</a></p>
+<p>getattr(object, name[, default]) 函数用于返回一个对象属性值。用例，leetcode习题解6：链表组件。</p>
+<pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">A</span>(<span class="hljs-symbol">object</span>):
+    <span class="hljs-symbol">bar</span> = <span class="hljs-symbol">1</span>
+&gt;&gt;&gt; <span class="hljs-symbol">a</span> = <span class="hljs-symbol">A</span>()
+&gt;&gt;&gt; <span class="hljs-symbol">getattr</span>(<span class="hljs-symbol">a, </span>'<span class="hljs-symbol">bar</span>')  # 获取属性 <span class="hljs-symbol">bar</span> 值
+<span class="hljs-symbol">1</span></code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python3/python3-string-maketrans.html" target="_blank" rel="noopener">maketrans()</a></p>
+<p>str.maketrans(intab_str, outtab_str) 创建字符映射的转换表。第一个参数表示需要转换的字符，第二个表示转换的目标。两个字符串的长度必须相同，为一一对应关系</p>
+<p><a href="https://www.runoob.com/python3/python3-string-translate.html" target="_blank" rel="noopener">translate()</a></p>
+<p>translate() 方法根据参数table给出的表(包含 256 个字符)转换字符串的字符，要过滤掉的字符放到 deletechars 参数中。</p>
+<pre><code class="hljs python">intab = <span class="hljs-string">"aeiou"</span>
+outtab = <span class="hljs-string">"12345"</span>
+trantab = str.maketrans(intab, outtab)   <span class="hljs-comment"># 制作翻译表</span>
+ 
+str = <span class="hljs-string">"this is string example....wow!!!"</span>
+<span class="hljs-keyword">print</span> (str.translate(trantab))
+
+<span class="hljs-comment"># th3s 3s str3ng 2x1mpl2....w4w!!!</span></code></pre>
+
+
+
+<p>ord() 和 chr()</p>
+<p>ord() 和 chr() 方法将字母和ASCII相互转化。</p>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>ord(<span class="hljs-string">'A'</span>) 
+<span class="hljs-number">65</span> 
+<span class="hljs-meta">&gt;&gt;&gt; </span>chr(<span class="hljs-number">65</span>) 
+<span class="hljs-string">'A'</span></code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python/att-string-join.html" target="_blank" rel="noopener">join()</a></p>
+<p>str.join(sequence) 方法用于将序列中的元素以指定的字符连接生成一个新的字符串，sequence为要连接的元素序列。返回通过指定字符连接序列中元素后生成的新字符串。 </p>
+<pre><code class="hljs python">str = <span class="hljs-string">"-"</span>
+seq = (<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>)
+<span class="hljs-keyword">print</span> str.join(seq)
+<span class="hljs-comment"># a-b-c</span>
+
+list = [<span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>]
+print(<span class="hljs-string">''</span>.join(list))
+<span class="hljs-comment"># 123</span>
+
+seq = &#123;<span class="hljs-string">'hello'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'world'</span>: <span class="hljs-number">2</span>&#125;
+print(<span class="hljs-string">'-'</span>.join(seq))  <span class="hljs-comment"># 字典只对键进行连接</span>
+<span class="hljs-comment"># hello-world</span>
+
+<span class="hljs-keyword">import</span> os	
+<span class="hljs-keyword">print</span> os.path.join(<span class="hljs-string">"D:\\"</span>,<span class="hljs-string">"test.txt"</span>)  <span class="hljs-comment"># 连接2个字符串</span>
+<span class="hljs-comment"># D:\test.txt</span>
+
+<span class="hljs-comment"># file_path存放于E:\PySec</span>
+print(os.path.abspath(<span class="hljs-string">'.'</span>))
+print(os.path.dirname(os.path.abspath(<span class="hljs-string">'.'</span>)))  <span class="hljs-comment"># abspath('.')返回当前目录的绝对路径</span>
+file_dir = os.path.dirname(os.path.abspath(<span class="hljs-string">'.'</span>)) + <span class="hljs-string">'data'</span>
+lists = os.listdir(file_dir)
+print(lists)
+file = os.path.join(file_dir, lists[<span class="hljs-number">-1</span>])
+print(file)
+
+<span class="hljs-comment"># E:\PySec</span>
+<span class="hljs-comment"># E:\</span>
+<span class="hljs-comment"># ['DAG reference.pdf', 'formatted.csv', 'formatted_1.csv', 'formatted_2.csv', 'Pro_process.docx']</span>
+<span class="hljs-comment"># E:\data\Pro_process.docx</span></code></pre>
+
+
+
+<p><a href="https://www.runoob.com/python3/python3-os-path.html" target="_blank" rel="noopener">os.path()</a></p>
+<p>os.path 模块主要用于获取文件的属性。</p>
+<p><a href="https://www.runoob.com/python/att-string-find.html" target="_blank" rel="noopener">find()</a></p>
+<p>str.find(str, beg=0, end=len(string))。Python find() 方法检测字符串中是否包含子字符串 str ，如果指定 beg（开始） 和 end（结束） 范围，则检查是否包含在指定范围内，如果包含子字符串返回开始的索引值，否则返回-1。</p>
+<p><a href="https://www.runoob.com/python/att-string-isalpha.html" target="_blank" rel="noopener">isalpha()</a></p>
+<p>isalpha() 方法检测字符串是否只由字母组成。如果字符串至少有一个字符并且所有字符都是字母则返回 True，否则返回 False。</p>
+<p><a href="https://www.runoob.com/python/python-func-all.html" target="_blank" rel="noopener">all()</a></p>
+<p>all() 函数用于判断给定的可迭代参数 iterable 中的所有元素是否都为 TRUE，如果是返回 True，否则返回 False。元素除了是 0、空、None、False 外都算 True。</p>
+<p><a href="https://blog.csdn.net/LaoYuanPython/article/details/95082169" target="_blank" rel="noopener">富比较</a></p>
+<p>Python中基类object提供了一系列可以用于实现同类对象进行“比较”的方法，可以用于同类对象的不同实例进行比较，包括 <strong>lt</strong>、<strong>gt</strong>、<strong>le</strong>、<strong>ge</strong>、<strong>eq</strong>和<strong>ne</strong> 六个方法。</p>
+<p><a href="https://docs.python.org/zh-cn/3.7/library/itertools.html" target="_blank" rel="noopener">排列组合</a></p>
+<p>python的itertools包中提供了和排列组合相关的函数：</p>
+<ul>
+<li><a href="https://docs.python.org/zh-cn/3.7/library/itertools.html#itertools.combinations" target="_blank" rel="noopener">combinations</a>方法重点在组合</li>
+<li><a href="https://docs.python.org/zh-cn/3.7/library/itertools.html#itertools.permutations" target="_blank" rel="noopener">permutations</a>方法重在排列</li>
+<li><a href="https://docs.python.org/zh-cn/3.7/library/itertools.html#itertools.product" target="_blank" rel="noopener">product</a> 用于求多个可迭代对象的笛卡尔积(Cartesian Product)，它跟嵌套的 for循环等价。即：product(A, B) 和 ((x,y) for x in A for y in B)的效果是一样的。</li>
+</ul>
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> combinations, permutations, product
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(combinations(<span class="hljs-string">'abc'</span>,<span class="hljs-number">2</span>))
+[(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-string">'a'</span>, <span class="hljs-string">'c'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>)]
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(permutations(<span class="hljs-string">'abc'</span>,<span class="hljs-number">2</span>))
+[(<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-string">'a'</span>, <span class="hljs-string">'c'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'a'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>), (<span class="hljs-string">'c'</span>, <span class="hljs-string">'a'</span>), (<span class="hljs-string">'c'</span>, <span class="hljs-string">'b'</span>)]
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(product(<span class="hljs-string">'abc'</span>,repeat=<span class="hljs-number">2</span>))
+[(<span class="hljs-string">'a'</span>, <span class="hljs-string">'a'</span>), (<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-string">'a'</span>, <span class="hljs-string">'c'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'a'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>), (<span class="hljs-string">'c'</span>, <span class="hljs-string">'a'</span>), (<span class="hljs-string">'c'</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-string">'c'</span>, <span class="hljs-string">'c'</span>)]
+<span class="hljs-meta">&gt;&gt;&gt; </span>list(product(<span class="hljs-string">'abc'</span>,<span class="hljs-string">'de'</span>))
+[(<span class="hljs-string">'a'</span>, <span class="hljs-string">'d'</span>), (<span class="hljs-string">'a'</span>, <span class="hljs-string">'e'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'d'</span>), (<span class="hljs-string">'b'</span>, <span class="hljs-string">'e'</span>), (<span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>), (<span class="hljs-string">'c'</span>, <span class="hljs-string">'e'</span>)]</code></pre>
+
+
+
+<p><a href="https://blog.csdn.net/transformed/article/details/89879193" target="_blank" rel="noopener">cmp_to_key</a></p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> cmp_to_key 
+L=[<span class="hljs-number">9</span>,<span class="hljs-number">2</span>,<span class="hljs-number">23</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]
+ 
+sorted(L,key=cmp_to_key(<span class="hljs-keyword">lambda</span> x,y:y-x))
+<span class="hljs-comment"># Output：</span>
+<span class="hljs-comment"># [23, 9, 2, 2, 1]</span>
+ 
+ 
+sorted(L,key=cmp_to_key(<span class="hljs-keyword">lambda</span> x,y:x-y))
+<span class="hljs-comment"># [1, 2, 2, 9, 23]</span></code></pre>
+
+
+
+
+
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>总结Python常用数据结构的操作的时间复杂度。</p>
+<p><a href="https://www.jianshu.com/p/a8fa3d31aa40" target="_blank" rel="noopener">参考一</a> </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://docs.python.org/zh-cn/3.7/library/stdtypes.html" target="_blank" rel="noopener">python3.7.6文档：内置类型</a></p>
+<p><a href="https://github.com/JiaxingZhao/Python--Antic/blob/master/Python%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB" target="_blank" rel="noopener">Python知识点汇总</a></p>
+<p><a href="https://www.runoob.com/python3/python3-tutorial.html" target="_blank" rel="noopener">Python3教程</a></p>
+<p><a href="https://blog.csdn.net/liuchunming033/article/details/51493367" target="_blank" rel="noopener">Python语言中的引用与拷贝</a></p>
+<p><a href="https://www.jianshu.com/p/801318c77ab5" target="_blank" rel="noopener">Python标准库模块之heapq</a></p>
+<p><a href="https://blog.csdn.net/LaoYuanPython/article/details/95082169" target="_blank" rel="noopener">为什么Python中称lt、gt等为“富比较”方法</a></p>
+
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                  </div>
                 
                 
               </div>

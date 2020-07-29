@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年7月28日 下午
+                  本文最后更新于：2020年7月29日 早上
                 
               </p>
             
@@ -276,7 +276,7 @@
 <li>插入、删除数据快；</li>
 </ul>
 <h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p>根据指针一个节点一个节点依次遍历，直到找到目标节点。</p>
-<h4 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h4><p>只要考虑相邻节点的指针改变，时间复杂度是O(1)</p>
+<h4 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h4><p>只要考虑相邻节点的指针改变，时间复杂度是O(1)。</p>
 <h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><p>一种特殊的单链表，尾节点指针指向链表的头节点。</p>
 <h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><ul>
 <li><p>支持两个方向，后继指针 next 指向后面的节点，前驱指针 pre 指向前面的节点；</p>
@@ -348,17 +348,17 @@
 
 
 
-<h4 id="链式栈"><a href="#链式栈" class="headerlink" title="链式栈"></a>链式栈</h4><pre><code class="hljs python">/**
- * 基于链表实现的链式栈
- * 注意：通俗的理解，节点的next指针是指向“底下”的节点，是指向下面的节点
- */
-public class StackBasedOnLinkedList &#123;
-  private Node top = null;
+<h4 id="链式栈"><a href="#链式栈" class="headerlink" title="链式栈"></a>链式栈</h4><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 基于链表实现的链式栈</span>
+<span class="hljs-comment"> * 注意：通俗的理解，节点的next指针是指向“底下”的节点，是指向下面的节点</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StackBasedOnLinkedList</span> </span>&#123;
+  <span class="hljs-keyword">private</span> Node top = <span class="hljs-keyword">null</span>;
 
-  public void push(int value) &#123;
-    Node newNode = new Node(value, null);
-    // 判断是否栈空
-    <span class="hljs-keyword">if</span> (top == null) &#123;
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+    Node newNode = <span class="hljs-keyword">new</span> Node(value, <span class="hljs-keyword">null</span>);
+    <span class="hljs-comment">// 判断是否栈空</span>
+    <span class="hljs-keyword">if</span> (top == <span class="hljs-keyword">null</span>) &#123;
       top = newNode;
     &#125; <span class="hljs-keyword">else</span> &#123;
       newNode.next = top;
@@ -366,36 +366,36 @@ public class StackBasedOnLinkedList &#123;
     &#125;
   &#125;
 
-  /**
-   * 这里用<span class="hljs-number">-1</span>表示栈中没有数据。
-   */
-  public int pop() &#123;
-    <span class="hljs-keyword">if</span> (top == null) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
-    int value = top.data;
+  <span class="hljs-comment">/**</span>
+<span class="hljs-comment">   * 这里用-1表示栈中没有数据。</span>
+<span class="hljs-comment">   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">pop</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">if</span> (top == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">int</span> value = top.data;
     top = top.next;
     <span class="hljs-keyword">return</span> value;
   &#125;
 
-  public void printAll() &#123;
-    // 用一个临时变量
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">printAll</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-comment">// 用一个临时变量</span>
     Node p = top;
-    <span class="hljs-keyword">while</span> (p != null) &#123;
+    <span class="hljs-keyword">while</span> (p != <span class="hljs-keyword">null</span>) &#123;
       System.out.print(p.data + <span class="hljs-string">" "</span>);
       p = p.next;
     &#125;
     System.out.println();
   &#125;
 
-  private static class Node &#123;
-    private int data;
-    private Node next;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> data;
+    <span class="hljs-keyword">private</span> Node next;
 
-    public Node(int data, Node next) &#123;
-      this.data = data;
-      this.next = next;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> data, Node next)</span> </span>&#123;
+      <span class="hljs-keyword">this</span>.data = data;
+      <span class="hljs-keyword">this</span>.next = next;
     &#125;
 
-    public int getData() &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getData</span><span class="hljs-params">()</span> </span>&#123;
       <span class="hljs-keyword">return</span> data;
     &#125;
   &#125;
@@ -410,7 +410,7 @@ public class StackBasedOnLinkedList &#123;
 </li>
 <li>顺序栈还是链式栈，<strong>入栈、出栈</strong>只涉及<strong>栈顶</strong>个别数据的操作，所以时间复杂度都是 O(1)；</li>
 </ul>
-<h3 id="动态扩容的栈"><a href="#动态扩容的栈" class="headerlink" title="动态扩容的栈"></a>动态扩容的栈</h3><p>尽管<strong>链式栈的大小不受限，但要存储 next 指针，内存消耗相对较多</strong>。</p>
+<h3 id="动态扩容的栈"><a href="#动态扩容的栈" class="headerlink" title="动态扩容的栈"></a>动态扩容的栈</h3><p>尽管链式栈的大小不受限，但要存储 next 指针，<strong>内存消耗相对较多</strong>。</p>
 <h4 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h4><ul>
 <li><p>底层依赖一个支持动态扩容的数组；</p>
 </li>
@@ -426,10 +426,10 @@ public class StackBasedOnLinkedList &#123;
 </li>
 </ul>
 <h4 id="出栈"><a href="#出栈" class="headerlink" title="出栈"></a>出栈</h4><p>时间复杂度是O(1)。</p>
-<h3 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h3><h4 id="函数调用栈"><a href="#函数调用栈" class="headerlink" title="函数调用栈"></a>函数调用栈</h4><p>栈在软件工程中的实际应用。作为一个比较基础的数据结构，<strong>应用场景较多</strong>。一个比较经典的应用场景就是<strong>函数调用栈</strong>。栈可以用于在函数调用时保存临时变量，为什么函数调用要用“栈”来保存临时变量呢？用其他数据结构不行吗？</p>
+<h3 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h3><h4 id="函数调用栈"><a href="#函数调用栈" class="headerlink" title="函数调用栈"></a>函数调用栈</h4><p>作为一个比较基础的数据结构，<strong>应用场景较多</strong>。一个比较经典的应用场景就是<strong>函数调用栈</strong>。栈可以用于在函数调用时保存临时变量，为什么函数调用要用“栈”来保存临时变量呢？用其他数据结构不行吗？</p>
 <ul>
 <li>其实，不一定非要用栈来保存临时变量，只不过函数调用符合<strong>后进先出</strong>的特性，用栈这种数据结构来实现，是最<strong>顺理成章</strong>的选择；</li>
-<li>从调用函数进入被调用函数，对于<strong>数据</strong>来说，变化的是什么呢？是<strong>作用域</strong>。所以根本上，只要能保证每进入一个新的函数，都是一个新的作用域就可以。而要实现这个，用栈就非常方便。在进入被调用函数的时候，<strong>分配一段栈空间</strong>给这个函数的变量，在函数结束的时候，将<strong>栈顶复位</strong>，正好回到调用函数的作用域内。  </li>
+<li>从调用函数进入被调用函数，对于<strong>数据</strong>来说，变化的是什么呢？是<strong>作用域</strong>。所以根本上，只要能保证每进入一个新的函数，都是一个新的作用域就可以。而要实现这个，用栈就非常方便。在进入被调用函数的时候，分配一段<strong>栈空间</strong>给这个函数的变量，在函数结束的时候，将<strong>栈顶复位</strong>，正好回到调用函数的作用域内；</li>
 </ul>
 <p><strong>操作系统给每个线程分配了一块独立的内存空间，这块内存被组织成“栈”这种结构</strong>，用来存储函数调用时的临时变量。每进入一个函数，就会将临时变量作为一个栈帧入栈，当被调用函数执行完成，返回之后，将这个函数对应的栈帧出栈。</p>
 <pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
@@ -456,7 +456,7 @@ public class StackBasedOnLinkedList &#123;
 <li>从左向右遍历表达式，当遇到<strong>数字</strong>，就直接<strong>压入操作数栈</strong>；</li>
 <li>当遇到<strong>运算符</strong>，就与<strong>运算符栈的栈顶元素</strong>进行比较，<ul>
 <li>如果比运算符栈顶元素的<strong>优先级高</strong>，就将当前运算符<strong>压栈</strong>；</li>
-<li>如果比运算符栈顶元素的优先级<strong>低或者相同</strong>，从运算符栈中<strong>取栈顶运算符</strong>，从操作数栈的栈顶<strong>取 2 个操作数</strong>，然后进行计算，再把计算完的结果<strong>压入操作数栈</strong>，继续比较。</li>
+<li>如果比运算符栈顶元素的优先级<strong>低或者相同</strong>，从运算符栈中<strong>取栈顶运算符</strong>，从操作数栈的栈顶<strong>取 2 个操作数</strong>，然后进行计算，再把计算完的结果<strong>压入操作数栈</strong>，继续比较；</li>
 </ul>
 </li>
 </ul>
@@ -617,7 +617,7 @@ public class StackBasedOnLinkedList &#123;
 
 
 
-<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>数组首位相连成环。用数组来实现队列的时候，在 tail==n 时，会有<strong>数据搬移</strong>操作，这样入队操作性能就会受到影响。</p>
+<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>用数组来实现队列的时候，在 tail==n 时，会有<strong>数据搬移</strong>操作，这样入队操作性能就会受到影响。可以使用逻辑上数组首尾相连成环的循环队列解决这个问题。</p>
 <h4 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h4><p>确定好队空和队满的判定条件：</p>
 <ul>
 <li>队空：head == tail；</li>
@@ -673,14 +673,11 @@ public class StackBasedOnLinkedList &#123;
 <h4 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h4><p>方式一：直接在enqueue()、dequeue() 上加锁，锁粒度大并发度会比较低下，同一时刻仅允许一个存取数操作。</p>
 <p>方式二：利用 CAS 原子操作，可以实现非常高效的并发队列。</p>
 <h3 id="应用-3"><a href="#应用-3" class="headerlink" title="应用"></a>应用</h3><ul>
-<li><p>平时的业务很少直接用到队列；</p>
-</li>
-<li><p>一些具有特殊特性的队列应用比较广泛，比如循环队列、阻塞队列和并发队列；</p>
-</li>
-<li><p>循环队列比链式队列应用更加广泛；</p>
-</li>
-<li><p>高性能队列 Disruptor、Linux环形缓存，都用到了循环并发队列。Java concurrent 并发包利用 ArrayBlockingQueue 来实现公平锁等。</p>
-</li>
+<li>平时的业务很少直接用到队列；</li>
+<li>一些具有特殊特性的队列应用比较广泛，比如循环队列、阻塞队列和并发队列；</li>
+<li>循环队列比链式队列应用更加广泛；</li>
+<li>高性能队列 Disruptor、Linux环形缓存，都用到了循环并发队列；</li>
+<li>Java concurrent 并发包利用 ArrayBlockingQueue 来实现公平锁等；</li>
 </ul>
 <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>每个节点最多有两个子节点，即左子节点和右子节点。</p>
 <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><ul>
@@ -735,12 +732,12 @@ public class StackBasedOnLinkedList &#123;
 <ul>
 <li>如果要插入的数据比节点的数据大：<ol>
 <li>并且节点的右子树为空，就将新数据直接插到右子节点的位置；</li>
-<li>如果不为空，就再递归遍历右子树，查找插入位置。</li>
+<li>如果不为空，就递归遍历右子树，查找插入位置；</li>
 </ol>
 </li>
 <li>如果要插入的数据比节点数值小：<ol>
-<li>并且节点的左子树为空，就将新数据插入到左子节点的位置；</li>
-<li>如果不为空，就再递归遍历左子树，查找插入位置；</li>
+<li>并且节点的左子树为空，就将新数据直接插到左子节点的位置；</li>
+<li>如果不为空，就递归遍历左子树，查找插入位置；</li>
 </ol>
 </li>
 </ul>
@@ -824,7 +821,7 @@ public class StackBasedOnLinkedList &#123;
 <ul>
 <li>散列表中的数据是无序存储的，如果要输出有序的数据，需要先进行排序。BST中序遍历可以在 O(n) 时间复杂度内输出有序的数据序列；</li>
 <li>散列表扩容耗时很多，而且当遇到散列冲突时，性能不稳定；尽管二叉查找树的性能不稳定，但是在工程中，最常用的平衡二叉查找树的性能稳定，时间复杂度稳定在 O(logn)；</li>
-<li>笼统地说，尽管散列表的查找等操作的时间复杂度是常量级的，但因为哈希冲突的存在，这个常量不一定比 logn 小，所以实际的查找速度可能不一定比 O(logn) 快。加上哈希函数的耗时，也不一定就比平衡二叉查找树的效率高；</li>
+<li>尽管散列表的查找等操作的时间复杂度是常量级的，但因为哈希冲突的存在，这个常量不一定比 logn 小，所以实际的查找速度可能不一定比 O(logn) 快。加上哈希函数的耗时，也不一定比平衡二叉查找树的效率高；</li>
 <li>散列表的构造比二叉查找树要复杂，需要考虑的东西很多。比如散列函数的设计、冲突解决办法、扩容、缩容等。平衡二叉查找树只需要考虑平衡性这一个问题，而且这个问题的解决方案比较成熟、固定；</li>
 <li>为了避免过多的散列冲突，散列表装载因子不能太大，特别是基于开放寻址法解决冲突的散列表，不然会浪费一定的存储空间；</li>
 </ul>
