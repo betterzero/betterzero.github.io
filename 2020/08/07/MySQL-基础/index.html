@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      20.5k 字
+      20.4k 字
     </span>
   
 
@@ -834,50 +834,50 @@ engine=InnoDB;
 <p>答：参考资料：<a href="https://blog.csdn.net/Golderant/article/details/90517035" target="_blank" rel="noopener">MySQL的几种连接方式</a> 和 <a href="https://blog.csdn.net/weixin_41404773/article/details/85124467" target="_blank" rel="noopener">mysql几种连接方式区别</a>。</p>
 <ul>
 <li><p>内连接：获取两个表中字段匹配关系的记录，即两个表中共有的部分。inner可以省略；</p>
-<ul>
-<li><pre><code class="mysql">SELECT *,*,* 
+<pre><code class="hljs mysql">SELECT *,*,* 
 FROM TABLE_A
 INNER JOIN TABLE_B
-ON TABLE_A.ID=TABLE_B.ID;
-<pre><code class="hljs">
+ON TABLE_A.ID&#x3D;TABLE_B.ID;</code></pre>
 
-![](内连接.png)
 
-- 左连接：获取左表所有记录，即使右表没有对应匹配的记录。右表中没有对应匹配的记录则相应的数据为NULL；
 
-  - ```mysql
-    SELECT *,*,* 
-    FROM TABLE_A
-    LEFT JOIN TABLE_B
-    ON TABLE_A.ID=TABLE_B.ID;</code></pre>
 
-</code></pre>
 </li>
 </ul>
+<p><img src="%E5%86%85%E8%BF%9E%E6%8E%A5.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>左连接：获取左表所有记录，即使右表没有对应匹配的记录。右表中没有对应匹配的记录则相应的数据为NULL；</p>
+<pre><code class="hljs mysql">SELECT *,*,* 
+FROM TABLE_A
+LEFT JOIN TABLE_B
+ON TABLE_A.ID&#x3D;TABLE_B.ID;</code></pre>
+
+
+
 </li>
 </ul>
 <p><img src="%E5%B7%A6%E8%BF%9E%E6%8E%A5.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
 <li><p>右连接：获取右表所有记录，即使左表没有对应匹配的记录。左表没有对应匹配的记录则相应的数据为NULL；</p>
-<ul>
-<li><pre><code class="mysql">SELECT *,*,* 
+<pre><code class="hljs mysql">SELECT *,*,* 
 FROM TABLE_A
 RIGHT JOIN TABLE_B
-ON TABLE_A.ID=TABLE_B.ID;
-<pre><code class="hljs">
+ON TABLE_A.ID&#x3D;TABLE_B.ID;</code></pre>
 
-![](右连接.png)
 
-- 全连接：两表关联，查询它们的所有记录。oracle里面有full join，但是在 mysql 中没有 full join。可以使用union来达到目的。
 
-  - ```mysql
-    mysql&gt; select * from TABLE_A left join TABLE_B on TABLE_A.ID = TABLE_B.ID
-        -&gt; union 
-        -&gt; select * from TABLE_A right join TABLE_B on TABLE_A.ID = TABLE_B.ID;</code></pre>
-
-</code></pre>
 </li>
 </ul>
+<p><img src="%E5%8F%B3%E8%BF%9E%E6%8E%A5.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>全连接：两表关联，查询它们的所有记录。oracle里面有full join，但是在 mysql 中没有 full join。可以使用union来达到目的。</p>
+<pre><code class="hljs mysql">mysql&gt; select * from TABLE_A left join TABLE_B on TABLE_A.ID &#x3D; TABLE_B.ID
+    -&gt; union 
+    -&gt; select * from TABLE_A right join TABLE_B on TABLE_A.ID &#x3D; TABLE_B.ID;</code></pre>
+
+
+
+
 </li>
 </ul>
 <p><img src="%E5%85%A8%E8%BF%9E%E6%8E%A5.png" srcset="/img/loading.gif" alt=""></p>
