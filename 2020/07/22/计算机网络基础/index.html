@@ -231,7 +231,7 @@
 
 
 
-<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>本文主要在<a href="https://krahets.gitee.io/" target="_blank" rel="noopener">Krahets’s Blog</a> 的 <a href="https://krahets.gitee.io/views/computer-network/2019-09-18-post-computer-network.html" target="_blank" rel="noopener">计算机网络学习笔记</a> 基础上，增加了应用层的部分内容，结合自己的理解，形成的一个版本。</p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>本文主要在 <a href="https://krahets.gitee.io/" target="_blank" rel="noopener">Krahets’s Blog</a> 的 <a href="https://krahets.gitee.io/views/computer-network/2019-09-18-post-computer-network.html" target="_blank" rel="noopener">计算机网络学习笔记</a> 基础上，增加了应用层的部分内容，结合自己的理解，形成的一个版本。</p>
 <h1 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h1><h2 id="具有五层协议的体系结构"><a href="#具有五层协议的体系结构" class="headerlink" title="具有五层协议的体系结构"></a>具有五层协议的体系结构</h2><ul>
 <li>OSI 七层协议体系概念清楚，理论也较完整，但它既复杂又不实用；</li>
 <li>五层协议体系结构综合 OSI 和 TCP/IP 优点，简洁又能将概念阐释清楚。</li>
@@ -285,10 +285,10 @@
 <p><img src="%E6%95%B0%E6%8D%AE%E5%9C%A8%E5%90%84%E5%B1%82%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E9%80%92%E8%BF%87%E7%A8%8B.jpg" srcset="/img/loading.gif" alt=""></p>
 <h2 id="TCP-IP-体系结构"><a href="#TCP-IP-体系结构" class="headerlink" title="TCP/IP 体系结构"></a>TCP/IP 体系结构</h2><ul>
 <li><p>实际上，现在的互联网使用的 TCP/IP 体系结构有时已经演变成下图所示那样，即某些应用程序可以<strong>直接使用 IP 层</strong>，或甚至<strong>直接使用最下面的网络接口层</strong>；</p>
-<p>![](TCP IP体系结构的另一种表示方法.jpg)</p>
+<p><img src="TCPIP%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95.jpg" srcset="/img/loading.gif" alt=""></p>
 </li>
 <li><p><strong>TCP/IP 协议</strong> 可以为各式<strong>各样的应用程序</strong>提供服务，同时也允许 IP 协议在<strong>各式各样的网络</strong>构成的互联网上运行。</p>
-<p>![](沙漏计时器形状的TCP IP协议族示意.jpg)</p>
+<p><img src="%E6%B2%99%E6%BC%8F%E8%AE%A1%E6%97%B6%E5%99%A8%E5%BD%A2%E7%8A%B6%E7%9A%84TCPIP%E5%8D%8F%E8%AE%AE%E6%97%8F%E7%A4%BA%E6%84%8F.jpg" srcset="/img/loading.gif" alt=""></p>
 </li>
 </ul>
 <h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><h2 id="三个基本问题"><a href="#三个基本问题" class="headerlink" title="三个基本问题"></a>三个基本问题</h2><p>封装成帧、透明传输、差错检测</p>
@@ -326,7 +326,7 @@
 </ul>
 </li>
 </ul>
-<p>![](帧丢失 帧重复 帧失序.jpg)</p>
+<p><img src="%E5%B8%A7%E4%B8%A2%E5%A4%B1%E5%B8%A7%E9%87%8D%E5%A4%8D%E5%B8%A7%E5%A4%B1%E5%BA%8F.jpg" srcset="/img/loading.gif" alt=""></p>
 <h2 id="点对点协议-PPP"><a href="#点对点协议-PPP" class="headerlink" title="点对点协议 PPP"></a>点对点协议 PPP</h2><h3 id="PPP-协议特点"><a href="#PPP-协议特点" class="headerlink" title="PPP 协议特点"></a>PPP 协议特点</h3><ul>
 <li>简单、封装成帧 + MTU 、透明性、差错检测；</li>
 <li>支持多种网络层协议、多种类型链路、自动检测连接状态。</li>
@@ -764,7 +764,7 @@
 </ul>
 <h3 id="运输层的两个主要协议"><a href="#运输层的两个主要协议" class="headerlink" title="运输层的两个主要协议"></a>运输层的两个主要协议</h3><ul>
 <li><p><strong>用户数据报协议 UDP</strong> 和 <strong>传输控制协议 TCP</strong>；</p>
-<p>![](TCP IP体系中的运输层协议.jpg)</p>
+<p><img src="TCPIP%E4%BD%93%E7%B3%BB%E4%B8%AD%E7%9A%84%E8%BF%90%E8%BE%93%E5%B1%82%E5%8D%8F%E8%AE%AE.jpg" srcset="/img/loading.gif" alt=""></p>
 </li>
 <li><p>下表给出了一些应用和应用层协议主要使用的<strong>运输层协议</strong>。</p>
 <p><img src="%E4%BD%BF%E7%94%A8UDP%E5%92%8CTCP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%90%84%E7%A7%8D%E5%BA%94%E7%94%A8%E5%92%8C%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE.jpg" srcset="/img/loading.gif" alt=""></p>
@@ -1276,8 +1276,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/22/JVM%20%E5%9F%BA%E7%A1%80/">
-                        <span class="hidden-mobile">JVM 基础</span>
+                      <a href="/2020/07/22/MySQL-%E5%9F%BA%E7%A1%80/">
+                        <span class="hidden-mobile">MySQL 基础</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
