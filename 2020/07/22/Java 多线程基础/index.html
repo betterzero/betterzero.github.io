@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月21日 晚上
+                  本文最后更新于：2020年8月22日 早上
                 
               </p>
             
@@ -839,8 +839,7 @@ String name = localName.get();</code></pre>
 <li>wait() 通常被用于<strong>线程间交互/通信</strong>，sleep() 通常被用于<strong>暂停执行</strong>；</li>
 <li>wait() 方法被调用后，线程<strong>不会自动苏醒</strong>，需要别的线程调用同一个对象上的 <strong>notify() 或者 notifyAll() 方法</strong>；sleep() 方法执行完成后，线程会<strong>自动苏醒</strong>。或者可以使用 <strong>wait(long timeout) 超时后线程会自动苏醒</strong>；</li>
 </ul>
-<p>start() 方法会执行 run()，为什么不直接调用 run() 方法</p>
-<ul>
+<h3 id="start-方法会执行-run-，为什么不直接调用-run-方法"><a href="#start-方法会执行-run-，为什么不直接调用-run-方法" class="headerlink" title="start() 方法会执行 run()，为什么不直接调用 run() 方法"></a>start() 方法会执行 run()，为什么不直接调用 run() 方法</h3><ul>
 <li>new 一个 Thread，线程进入了新建状态；</li>
 <li>调用 start() 方法，会启动一个线程并使线程进入了<strong>就绪状态</strong>，当分配到时间片后就可以开始运行；<ul>
 <li>start() 会执行线程的相应<strong>准备工作</strong>，然后自动执行 run() 方法的内容，这是真正的多线程工作；</li>

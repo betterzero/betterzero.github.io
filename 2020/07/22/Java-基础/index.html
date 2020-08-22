@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.3k 字
+      11.5k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      120
+      122
        分钟
     </span>
   
@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月12日 晚上
+                  本文最后更新于：2020年8月22日 早上
                 
               </p>
             
@@ -489,6 +489,13 @@
 <li>finally 则是 Java 保证重点代码一定要被执行的一种机制。可以使用 try-finally 或者 try-catch-finally 来进行类似关闭 JDBC 连接、保证 unlock 锁等动作；</li>
 <li>finalize 是基础类 java.lang.Object 的一个方法，它的设计目的是保证对象在被垃圾收集前完成特定资源的回收。finalize 机制现在已经不推荐使用，并且在 JDK 9 开始被标记为 deprecated；</li>
 </ul>
+<p>有 return 的情况下 try-catch-finally 的执行顺序：</p>
+<ul>
+<li>不管有没有出现异常，finally 块中代码都会执行；</li>
+<li>当 try 和 catch 中有 return 时，finally 仍然会执行；</li>
+<li>finally 是在 return 后面的表达式运算后执行的（此时并没有返回运算后的值，而是先把要返回的值保存起来，不管 finally 中的代码怎么样，返回的值都不会改变，仍然是之前保存的值），所以函数返回值是在 finally 执行前确定的；</li>
+<li>finally 中最好不要包含 return，否则程序会提前退出，返回值不是 try 或 catch 中保存的返回值。</li>
+</ul>
 <h4 id="强引用、软引用、弱引用、幻象引用"><a href="#强引用、软引用、弱引用、幻象引用" class="headerlink" title="强引用、软引用、弱引用、幻象引用"></a>强引用、软引用、弱引用、幻象引用</h4><p>在 Java 语言中，除了原始数据类型的变量，其他所有都是所谓的引用类型，指向各种不同的对象，理解引用对于掌握 Java 对象生命周期和 JVM 内部相关机制非常有帮助。不同的引用类型，主要体现的是对象不同的可达性（reachable）状态和对垃圾收集的影响。</p>
 <ul>
 <li>强引用（Strong Reference）：最常见的普通对象引用，只要还有强引用指向对象，就能表明对象还“活着”，垃圾收集器不会碰这种对象。对于一个普通的对象，如果没有其他的引用关系，只要超过了引用的作用域或者显式地将相应（强）引用赋值为 null，就是可以被垃圾收集的了，当然具体回收时机还是要看垃圾收集策略；<ul>
@@ -645,6 +652,7 @@
 <p><a href="https://juejin.im/post/6844903847572275207" target="_blank" rel="noopener">深入探究Java中equals()和==的区别是什么</a></p>
 <p><a href="https://juejin.im/post/6844903853528186887" target="_blank" rel="noopener">详解Java中的字符串</a></p>
 <p><a href="https://blog.csdn.net/ty497122758/article/details/78979302" target="_blank" rel="noopener">JAVA BIO与NIO、AIO的区别</a></p>
+<p><a href="https://blog.csdn.net/thinkingcao/article/details/78563211" target="_blank" rel="noopener">有 return 的情况下try catch finally的执行顺序</a></p>
 
             </article>
             <hr>
