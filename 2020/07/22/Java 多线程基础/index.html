@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15k 字
+      16.5k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      174
+      190
        分钟
     </span>
   
@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月22日 早上
+                  本文最后更新于：2020年8月30日 晚上
                 
               </p>
             
@@ -268,8 +268,8 @@
 </ul>
 </li>
 <li>wait()：使一个线程处于等待（阻塞）状态，并且<strong>释放所持有的对象的锁</strong>；</li>
-<li>join()：t.join() 方法只会使主线程（调用 t.join() 的线程）进入等待池并等待 t线程 执行完毕后才会被唤醒。不影响同一时刻处在运行状态的其他线程；<ul>
-<li>使用场景示例：主线程创建并启动了线程，如果子线程中药进行大量耗时运算，主线程往往会早于子线程结束之前结束。如果主线程想等待子线程执行完成之后再结束，比如主线程要获取子线程处理的数据，就要用到 join() 方法；</li>
+<li>join()：t.join() 方法只会使主线程（调用 t.join() 的线程）进入等待池并等待 t 线程执行完毕后才会被唤醒。不影响同一时刻处在运行状态的其他线程；<ul>
+<li>使用场景示例：主线程创建并启动了线程，如果子线程中要进行大量耗时运算，主线程往往会早于子线程结束之前结束。如果主线程想等待子线程执行完成之后再结束，比如主线程要获取子线程处理的数据，就要用到 join() 方法；</li>
 </ul>
 </li>
 <li>yield()：告诉调度器主动让出 CPU；<ul>
@@ -313,9 +313,19 @@
 <h1 id="synchronized-与锁"><a href="#synchronized-与锁" class="headerlink" title="synchronized 与锁"></a>synchronized 与锁</h1><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>线程安全是一个多线程环境下<strong>正确性的概念</strong>，也就是保证多线程环境下<strong>共享的</strong>、<strong>可修改</strong>的<strong>状态</strong>的正确性，这里的状态反映在程序中其实可以看作是<strong>数据</strong>。换个角度来看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题。线程安全需要保证几个基本特性：</p>
 <ul>
 <li>原子性：相关操作不会中途被其他线程干扰，一般通过<strong>同步机制</strong>实现；</li>
-<li>可见性：一个线程修改了某个共享变量，其状态能够立即被其他线程知晓，通常被解释为<strong>将线程本地状态反映到主内存上</strong>，<strong>volatile</strong> 可以负责保证可见性的；</li>
+<li>可见性：一个线程修改了某个共享变量，其状态能够立即kong被其他线程知晓，通常被解释为<strong>将线程本地状态反映到主内存上</strong>，<strong>volatile</strong> 可以负责保证可见性的；</li>
 <li>有序性：保证线程内串行语义，<strong>避免指令重排</strong>等； </li>
 </ul>
+<h2 id="syschronized-实现原理"><a href="#syschronized-实现原理" class="headerlink" title="syschronized 实现原理"></a>syschronized 实现原理</h2><p>synchronized 可以保证方法或者代码块在运行时，<strong>同一时刻只有一个方法可以进入到临界区</strong>，同时它还可以<strong>保证共享变量的内存可见性</strong>。</p>
+<p><strong>注：</strong>synchronized 关键字用来修饰成员方法时，代表这个方法对于<strong>同一对象</strong>（控制是对象层级的，和引用没有关系。有3个引用，有3个Thread，这3个引用指向同一个对象，调被synchronized修饰的方法，那也只能有一个线程能进去）来说，同一时间只允许一个线程执行，别的线程如果也调用这个实例的这个方法，就需要等待已经在执行这个方法的线程执行完毕，才能进入方法执行。</p>
+<p>synchronized 同步代码块由一对 monitorenter / monitorexit 指令实现，Monitor 对象是同步的基本实现单元；同步方法（需要看JVM底层实现）依靠的是方法修饰符上的ACC_SYNCHRONIZED实现。</p>
+<p><strong>同步代码块</strong>：monitorenter指令插入到同步代码块的开始位置，monitorexit指令插入到同步代码块的结束位置，JVM需要保证每一个monitorenter都有一个monitorexit与之相对应。任何对象都有一个monitor与之相关联，当且一个monitor被持有之后，他将处于锁定状态。线程执行到monitorenter指令时，将会尝试获取对象所对应的monitor所有权，即尝试获取对象的锁；</p>
+<p><strong>同步方法</strong>：synchronized方法则会被翻译成普通的方法调用和返回指令如:invokevirtual、areturn指令，在VM字节码层面并没有任何特别的指令来实现被synchronized修饰的方法，而是在Class文件的方法表中将该方法的access_flags字段中的synchronized标志位置1，表示该方法是同步方法并使用调用该方法的对象或该方法所属的Class在JVM的内部对象表示Klass做为锁对象。</p>
+<ul>
+<li>Java 6 之前，Monitor 的实现完全依靠<strong>操作系统内部的互斥锁</strong>，因为需要进行<strong>用户态到内核态的切换</strong>，所以同步操作是一个<strong>重量级操作</strong>；</li>
+</ul>
+<h3 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h3><p>Monitor 可以理解为一个同步工具，也可以描述为一种同步机制，它通常被描述为一个对象。与一切皆对象一样，所有的 Java 对象是天生的Monitor，每一个 Java 对象都有成为 Monitor 的潜质。因为在 Java 的设计中 ，每一个 Java 对象本身就带了一把看不见的锁，它叫做内部锁或者 Monitor 锁。</p>
+<p>Monitor 是线程私有的数据结构，每一个线程都有一个可用 monitor record 列表，同时还有一个全局的可用列表。每一个被锁住的对象都会和一个 monitor 关联（对象头的 MarkWord 中的 LockWord 指向 monitor 的起始地址），同时 monitor 中有一个 Owner 字段存放拥有该锁的线程的唯一标识，表示该锁被这个线程占用。</p>
 <h2 id="synchronized-与-ReentrantLock"><a href="#synchronized-与-ReentrantLock" class="headerlink" title="synchronized 与 ReentrantLock"></a>synchronized 与 ReentrantLock</h2><p>synchronized 是 Java 内建的同步机制，所以也称为 Intrinsic Locking，它提供了互斥的语义和可见性，<strong>当一个线程已经获取当前锁时，其他试图获取的线程只能等待或者阻塞在那里</strong>。</p>
 <ul>
 <li>Java 5 以前，synchronized 是仅有的同步手段，在代码中，synchronized 可以用来<strong>修饰方法</strong>，也可以使用在特定的<strong>代码块</strong>儿上，<strong>本质上 synchronized 方法等同于把方法全部语句用 synchronized 块包起</strong>；</li>
@@ -326,15 +336,6 @@
 </li>
 <li>synchronized 和 ReentrantLock 的性能不能一概而论，早期版本 synchronized 在很多场景下性能相差较大，在后续版本进行了较多改进，在低竞争场景中表现可能优于 ReentrantLock；</li>
 </ul>
-<h2 id="syschronized-实现原理"><a href="#syschronized-实现原理" class="headerlink" title="syschronized 实现原理"></a>syschronized 实现原理</h2><p>synchronized可以保证方法或者代码块在运行时，同一时刻只有一个方法可以进入到临界区，同时它还可以保证共享变量的内存可见性。</p>
-<p>synchronized 同步代码块由一对 monitorenter / monitorexit 指令实现，Monitor 对象是同步的基本实现单元；同步方法（需要看JVM底层实现）依靠的是方法修饰符上的ACC_SYNCHRONIZED实现。</p>
-<p><strong>同步代码块</strong>：monitorenter指令插入到同步代码块的开始位置，monitorexit指令插入到同步代码块的结束位置，JVM需要保证每一个monitorenter都有一个monitorexit与之相对应。任何对象都有一个monitor与之相关联，当且一个monitor被持有之后，他将处于锁定状态。线程执行到monitorenter指令时，将会尝试获取对象所对应的monitor所有权，即尝试获取对象的锁；</p>
-<p><strong>同步方法</strong>：synchronized方法则会被翻译成普通的方法调用和返回指令如:invokevirtual、areturn指令，在VM字节码层面并没有任何特别的指令来实现被synchronized修饰的方法，而是在Class文件的方法表中将该方法的access_flags字段中的synchronized标志位置1，表示该方法是同步方法并使用调用该方法的对象或该方法所属的Class在JVM的内部对象表示Klass做为锁对象。</p>
-<ul>
-<li>Java 6 之前，Monitor 的实现完全依靠<strong>操作系统内部的互斥锁</strong>，因为需要进行<strong>用户态到内核态的切换</strong>，所以同步操作是一个<strong>重量级操作</strong>；</li>
-</ul>
-<h3 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h3><p>Monitor 可以理解为一个同步工具，也可以描述为一种同步机制，它通常被描述为一个对象。与一切皆对象一样，所有的 Java 对象是天生的Monitor，每一个 Java 对象都有成为 Monitor 的潜质。因为在 Java 的设计中 ，每一个 Java 对象本身就带了一把看不见的锁，它叫做内部锁或者 Monitor 锁。</p>
-<p>Monitor 是线程私有的数据结构，每一个线程都有一个可用 monitor record 列表，同时还有一个全局的可用列表。每一个被锁住的对象都会和一个 monitor 关联（对象头的 MarkWord 中的 LockWord 指向 monitor 的起始地址），同时 monitor 中有一个 Owner 字段存放拥有该锁的线程的唯一标识，表示该锁被这个线程占用。</p>
 <h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><h3 id="锁的优化"><a href="#锁的优化" class="headerlink" title="锁的优化"></a>锁的优化</h3><p>Java中每一个对象都可以作为锁：</p>
 <ul>
 <li><p>普通同步方法，锁是当前实例对象；</p>
@@ -381,7 +382,12 @@
 <li>newFixedThreadPool 和 newSingleThreadExecutor：允许请求的队列长度为 Integer.MAX_VALUE ，可能堆积大量的请求，从而导致OOM。</li>
 <li>newCachedThreadPool 和 newScheduledThreadPool：允许创建的线程数量为 Integer.MAX_VALUE ，可能会创建大量线程，从而导致OOM。</li>
 </ul>
-<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>ThreadLocal 是一个数据结构，有点像HashMap，可以保存”key : value”键值对，但是一个ThreadLocal只能保存一个，并且各个线程的数据互不干扰。</p>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>参考资料：</p>
+<p><a href="https://www.jianshu.com/p/377bb840802f" target="_blank" rel="noopener">占小狼 - ThreadLocal</a> 和 <a href="https://www.jianshu.com/p/30ee77732843" target="_blank" rel="noopener">并发容器之ThreadLocal</a>。</p>
+<p><img src="ThreadLocal.PNG" srcset="/img/loading.gif" alt=""></p>
+<p>在多线程编程中解决线程安全问题通常会利用 synchronzed 或者 lock 来控制线程对临界区资源的同步顺序。但是加锁的方式会让未获取到锁的线程进行阻塞等待，这种方式的时间效率并不是很好。<strong>线程安全问题的核心在于多个线程会对同一个临界区共享资源进行操作</strong>，那么，如果每个线程都使用自己的“共享资源”，各自使用各自的，又互相不影响到彼此即让多个线程间达到隔离的状态，这样就不会出现线程安全的问题。这是一种“<strong>空间换时间</strong>”的方案，每个线程都会都拥有自己的“共享资源”无疑内存会大很多，但是由于不需要同步也就减少了线程可能存在的阻塞等待的情况从而提高的时间效率。</p>
+<p><strong>从类名可以看到，ThreadLocal 表示线程的“本地变量”，即每个线程都拥有该变量副本，达到人手一份的效果，各用各的这样就可以避免共享资源的竞争</strong>。</p>
+<p>ThreadLocal 是一个数据结构，有点像HashMap，可以保存”key : value”键值对，但是一个ThreadLocal只能保存一个，并且各个线程的数据互不干扰。</p>
 <pre><code class="hljs java">ThreadLocal&lt;String&gt; localName = <span class="hljs-keyword">new</span> ThreadLocal();
 localName.set(<span class="hljs-string">"线程1"</span>);
 String name = localName.get();</code></pre>
@@ -861,7 +867,7 @@ String name = localName.get();</code></pre>
 <li><p>情况2：不同对象在两个线程中调用同一个同步方法；</p>
 <ul>
 <li>结果：不会产生互斥；</li>
-<li>解释：因为是两个对象，锁针对的是对象，并不是方法，所以可以并发执行，不会互斥。形象的来说就是因为我们每个线程在调用方法的时候都是new 一个对象，那么就会出现两个空间，两把钥匙， </li>
+<li>解释：因为是两个对象，锁针对的是对象，并不是方法，所以可以并发执行，不会互斥。形象的来说就是因为每个线程在调用方法的时候都是new 一个对象，那么就会出现两个空间，两把钥匙， </li>
 </ul>
 </li>
 </ul>
@@ -892,6 +898,58 @@ String name = localName.get();</code></pre>
 </ul>
 </li>
 </ul>
+<h3 id="说说对java线程的中断-interrupt-的理解"><a href="#说说对java线程的中断-interrupt-的理解" class="headerlink" title="说说对java线程的中断 interrupt 的理解"></a>说说对java线程的中断 interrupt 的理解</h3><p>一个线程在未正常结束之前, 被强制终止是很危险的事情. 因为它可能带来完全预料不到的严重后果比如会带着自己所持有的锁而永远的休眠，迟迟不归还锁等。 所以 Thread.suspend, Thread.stop 等方法都被 Deprecated 了。</p>
+<p>不能直接把一个线程直接终止，但有时候又有必要让一个线程终止，或者让它结束某种等待的状态。一个比较优雅而安全的做法是：<strong>使用等待/通知机制或者给那个线程一个中断信号，让它自己决定该怎么办。</strong></p>
+<p>中断线程的使用场景：</p>
+<p>某个子线程中，为了等待一些特定条件的到来，调用了 Thread.sleep(10000)，预期线程睡10秒之后自己醒来，但是如果这个特定条件提前到来的话，来通知一个处于 Sleep 的线程。又比如说，线程通过调用子线程的 join 方法阻塞自己以等待子线程结束，但是子线程运行过程中发现自己没办法在短时间内结束, 于是它需要想办法告诉主线程别等我了。这些情况下，就需要中断。</p>
+<p><strong>对非阻塞中的线程中断的Demo:</strong></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Thread3</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Thread</span></span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;  
+        <span class="hljs-keyword">while</span>(<span class="hljs-keyword">true</span>)&#123;  
+            <span class="hljs-keyword">if</span>(Thread.currentThread().isInterrupted())&#123;  
+                System.out.println(<span class="hljs-string">"Someone interrupted me."</span>);  
+            &#125;  
+            <span class="hljs-keyword">else</span>&#123;  
+                System.out.println(<span class="hljs-string">"Thread is Going..."</span>);  
+            &#125;
+        &#125;  
+    &#125;  
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;  
+        Thread3 t = <span class="hljs-keyword">new</span> Thread3();  
+        t.start();  
+        Thread.sleep(<span class="hljs-number">3000</span>);  
+        t.interrupt();  
+    &#125;  
+&#125;</code></pre>
+
+
+<p>在 main 线程 sleep 的过程中，由于 t 线程中 isInterrupted() 为 false，所以不断输出 ”Thread is going”。当调用 t 线程的 interrupt() 后 t 线程中 isInterrupted() 为 true。此时输出 “Someone interrupted me.” 而且线程并不会因为中断信号而停止运行。因为它只是被修改一个中断信号而已。</p>
+<p>当调用 t.interrput() 的时候，线程 t 的中断状态(interrupted status) 会被置位。可以通过Thread.currentThread().isInterrupted() 来检查这个布尔型的中断状态。</p>
+<p>Core Java：”<strong>没有任何语言方面的需求要求一个被中断的程序应该终止。中断一个线程只是为了引起该线程的注意，被中断线程可以决定如何应对中断</strong> “。</p>
+<pre><code class="hljs java"><span class="hljs-comment">//Interrupted的经典使用代码    </span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span></span>&#123;    
+    <span class="hljs-keyword">try</span>&#123;    
+        ....    
+        <span class="hljs-keyword">while</span>(!Thread.currentThread().isInterrupted() &amp;&amp; more work to <span class="hljs-keyword">do</span>)&#123;    
+            <span class="hljs-comment">// do more work;    </span>
+        &#125;    
+    &#125;<span class="hljs-keyword">catch</span>(InterruptedException e)&#123;    
+        <span class="hljs-comment">// thread was interrupted during sleep or wait    </span>
+    &#125;    
+    <span class="hljs-keyword">finally</span>&#123;    
+        <span class="hljs-comment">// cleanup, if required    </span>
+    &#125;    
+&#125;</code></pre>
+
+
+
+<p>在上面代码中，while 循环需要不停的检查自己的中断状态。当外部线程调用该线程的interrupt 时，使得中断状态置位即变为true。该线程终止循环，不执行循环中的do more work。</p>
+<p>这说明：<strong>interrupt 中断的是线程的某一部分业务逻辑，前提是线程需要检查自己的中断状态(isInterrupted())。</strong></p>
+<p>但是当线程被阻塞的时候，比如被 Object.wait, Thread.join 和 Thread.sleep 三种方法之一阻塞时。调用它的interrput()方法。可想而知，<strong>没有占用CPU运行的线程是不可能给自己的中断状态置位的。这就会产生一个InterruptedException异常。</strong></p>
+<p>当代码调用中要抛出一个InterruptedException，可以选择把中断状态复位，也可以选择向外抛出InterruptedException，这由外层的调用者决定。</p>
+<p><strong>不是所有的阻塞方法收到中断后都可以取消阻塞状态，输入和输出流类会阻塞等待 I/O 完成，但是它们不抛出 InterruptedException，而且在被中断的情况下也不会退出阻塞状态。</strong></p>
+<p><strong>尝试获取一个内部锁的操作（进入一个 synchronized 块）是不能被中断的，但是 ReentrantLock 支持可中断的获取模式即 tryLock(long time, TimeUnit unit)。</strong></p>
 <h3 id="按序打印"><a href="#按序打印" class="headerlink" title="按序打印"></a><a href="https://leetcode-cn.com/problems/print-in-order/" target="_blank" rel="noopener">按序打印</a></h3><p>注：典型的执行屏障的问题，可以通过构造屏障来实现。</p>
 <p>提供了一个类：</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>&#123;
@@ -1196,6 +1254,7 @@ String name = localName.get();</code></pre>
 <p><a href="https://www.infoq.cn/article/ftf-java-volatile/" target="_blank" rel="noopener">聊聊并发（一）—深入分析 Volatile 的实现原理</a></p>
 <p><a href="https://blog.csdn.net/a525390802/article/details/80509457" target="_blank" rel="noopener">JVM之内存模型JMM中本地内存的理解</a></p>
 <p><a href="https://juejin.im/post/6844903586984361992#heading-1" target="_blank" rel="noopener">ThreadLocal就是这么简单</a></p>
+<p><a href="https://blog.csdn.net/canot/article/details/51087772" target="_blank" rel="noopener">理解java线程的中断(interrupt)</a></p>
 
             </article>
             <hr>
