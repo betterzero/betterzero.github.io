@@ -382,8 +382,7 @@
 <li>newFixedThreadPool 和 newSingleThreadExecutor：允许请求的队列长度为 Integer.MAX_VALUE ，可能堆积大量的请求，从而导致OOM。</li>
 <li>newCachedThreadPool 和 newScheduledThreadPool：允许创建的线程数量为 Integer.MAX_VALUE ，可能会创建大量线程，从而导致OOM。</li>
 </ul>
-<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>参考资料：</p>
-<p><a href="https://www.jianshu.com/p/377bb840802f" target="_blank" rel="noopener">占小狼 - ThreadLocal</a> 和 <a href="https://www.jianshu.com/p/30ee77732843" target="_blank" rel="noopener">并发容器之ThreadLocal</a>。</p>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>参考资料：<a href="https://www.jianshu.com/p/377bb840802f" target="_blank" rel="noopener">占小狼 - ThreadLocal</a> 和 <a href="https://www.jianshu.com/p/30ee77732843" target="_blank" rel="noopener">并发容器之ThreadLocal</a>。</p>
 <p><img src="ThreadLocal.PNG" srcset="/img/loading.gif" alt=""></p>
 <p>在多线程编程中解决线程安全问题通常会利用 synchronzed 或者 lock 来控制线程对临界区资源的同步顺序。但是加锁的方式会让未获取到锁的线程进行阻塞等待，这种方式的时间效率并不是很好。<strong>线程安全问题的核心在于多个线程会对同一个临界区共享资源进行操作</strong>，那么，如果每个线程都使用自己的“共享资源”，各自使用各自的，又互相不影响到彼此即让多个线程间达到隔离的状态，这样就不会出现线程安全的问题。这是一种“<strong>空间换时间</strong>”的方案，每个线程都会都拥有自己的“共享资源”无疑内存会大很多，但是由于不需要同步也就减少了线程可能存在的阻塞等待的情况从而提高的时间效率。</p>
 <p><strong>从类名可以看到，ThreadLocal 表示线程的“本地变量”，即每个线程都拥有该变量副本，达到人手一份的效果，各用各的这样就可以避免共享资源的竞争</strong>。</p>
