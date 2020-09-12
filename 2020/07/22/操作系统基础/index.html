@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      16.7k 字
+      15.2k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      170
+      154
        分钟
     </span>
   
@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月22日 早上
+                  本文最后更新于：2020年9月13日 凌晨
                 
               </p>
             
@@ -582,42 +582,6 @@
 <p>实现思想如下：首先检查FIFO页面队列中的队首，这是最早进入主存的页面，如果其”引用位“是0.那么这个页面既时间长又没有用，选择此页面淘汰，如果是1，说明虽然它进入主存的时间比较早，但最近仍然使用，于是将其引用位清0，并把这个页面移至队尾，把它看作一个新调入的页，再给一次机会。</p>
 <h5 id="时钟轮转"><a href="#时钟轮转" class="headerlink" title="时钟轮转"></a>时钟轮转</h5><p>如果利用标准队列机制构造 FIFO 队列，SCR算法可能会产生频繁的出队和入队，实现代价较大，可采用循环队列机制构造页面队列，形成类似于钟表面的环形表，队列指针相当于钟表面上的指针，指向可能淘汰的页面，这就是时钟页面淘汰算法的得名。此算法和 SCR 本质上没有什么区别，仅仅是实现方法有所改变，仍然要使用页表中的“引用位”，把进程已调入主存的页面链接成循环队列，用指针指向循环队列中下一个将被替换的页面。</p>
 <h5 id="最少使用页面置换算法"><a href="#最少使用页面置换算法" class="headerlink" title="最少使用页面置换算法"></a>最少使用页面置换算法</h5><p>Least Frequently Used 选择在之前时期使用最少的页面作为淘汰页。</p>
-<h1 id="select-与-epoll"><a href="#select-与-epoll" class="headerlink" title="select 与 epoll"></a>select 与 epoll</h1><p>这一块是IO多路复用下的知识。</p>
-<p><strong>I/O多路复用</strong></p>
-<p>IO 复用模型在阻塞 IO 模型上多了一个 select 函数，select 函数有一个参数是文件描述符集合，意思就是对这些的文件描述符进行循环监听，当某个文件描述符就绪的时候，就对这个文件描述符进行处理。</p>
-<p>这种 IO 模型是属于阻塞的 IO。 但是由于它可以对多个文件描述符进行阻塞监听，所以它的效率比阻塞 IO 模型高效。</p>
-<p>IO 多路复用就是我们说的 select，poll，epoll。 select/epoll 的好处就在于单个 process就可以同时处理多个网络连接的 IO。 它的基本原理就是 select，poll，epoll 这个 function 会不断的轮询所负责的所有 socket，当某个 socket 有数据到达了，就通知用户进程。</p>
-<p>当用户进程调用了 select，那么整个进程会被 block，而同时，kernel 会“监视”所有 select负责的 socket，当任何一个 socket 中的数据准备好了，select 就会返回。 这个时候用户进程再调用 read 操作，将数据从 kernel 拷贝到用户进程。</p>
-<p>所以，I/O 多路复用的特点是通过一种机制一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符） 其中的任意一个进入读就绪状态，select()函数就可以返回。</p>
-<p>I/O 多路复用和阻塞 I/O 其实并没有太大的不同，事实上，还更差一些。 因为这里需要使用两个 system call (select 和 recvfrom)，而 blocking IO 只调用了一个 system call (recvfrom)。但是，用 select 的优势在于它可以同时处理多个 connection。</p>
-<p>所以，如果处理的连接数不是很高的话，使用 select/epoll 的 web server 不一定比使用multi-threading + blocking IO 的 web server 性能更好，可能延迟还更大。 select/epoll 的优势并不是对于单个连接能处理得更快，而是在于能处理更多的连接。 ）</p>
-<p>在 IO multiplexing Model 中，实际中，对于每一个 socket，一般都设置成为 non-blocking，但是，如上图所示，整个用户的 process 其实是一直被 block 的。 只不过 process 是被 select这个函数 block，而不是被 socket IO 给 block。</p>
-<p><strong>select</strong></p>
-<p>select：是最初解决IO阻塞问题的方法。用结构体 fd_set 来告诉内核监听多个文件描述符，该结构体被称为描述符集。 由数组来维持哪些描述符被置位了。 对结构体的操作封装在三个宏定义中。 通过轮寻来查找是否有描述符要被处理。</p>
-<p>存在的问题：</p>
-<ol>
-<li>内置数组的形式使得 select 的最大文件数受限与 FD_SIZE；</li>
-<li>每次调用 select 前都要重新初始化描述符集，将 fd 从用户态拷贝到内核态，每次调用select 后，都需要将 fd 从内核态拷贝到用户态；</li>
-<li>轮寻排查当文件描述符个数很多时，效率很低；</li>
-</ol>
-<p><strong>poll</strong></p>
-<p>poll：通过一个可变长度的数组解决了 select 文件描述符受限的问题。 数组中元素是结构体，该结构体保存描述符的信息，每增加一个文件描述符就向数组中加入一个结构体，结构体只需要拷贝一次到内核态。 poll 解决了 select 重复初始化的问题。 轮寻排查的问题未解决。</p>
-<p><strong>epoll</strong></p>
-<p>epoll：轮寻排查所有文件描述符的效率不高，使服务器并发能力受限。 因此，epoll 采用只返回状态发生变化的文件描述符，便解决了轮寻的瓶颈。</p>
-<p>epoll 对文件描述符的操作有两种模式：LT（level trigger） 和 ET（edge trigger） 。 LT模式是默认模式。</p>
-<ol>
-<li><p>LT 模式</p>
-<p>LT(level triggered)是缺省的工作方式，并且同时支持 block 和 no-block socket.在这种做法中，内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的 fd 进行 IO 操作。 如果你不作任何操作，内核还是会继续通知你的。</p>
-</li>
-<li><p>ET 模式</p>
-<p>ET(edge-triggered)是高速工作方式，只支持 no-block socket。 在这种模式下，当描述符从未就绪变为就绪时，内核通过 epoll 告诉你。 然后它会假设你知道文件描述符已经就绪，并且不会再为那个文件描述符发送更多的就绪通知，直到你做了某些操作导致那个文件描述符不再为就绪状态了(比如，你在发送，接收或者接收请求，或者发送接收的数据少于一定量时导致了一个 EWOULDBLOCK 错误） 。 但是请注意，如果一直不对这个 fd 作 IO 操作(从而导致它再次变成未就绪)，内核不会发送更多的通知(only once)</p>
-<p>ET 模式在很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。 epoll工作在 ET 模式的时候，必须使用非阻塞套接口，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</p>
-</li>
-<li><p>LT 模式与 ET 模式的区别如下：</p>
-<p>LT 模式：当 epoll_wait 检测到描述符事件发生并将此事件通知应用程序，应用程序可以不立即处理该事件。 下次调用 epoll_wait 时，会再次响应应用程序并通知此事件。</p>
-<p>ET 模式：当 epoll_wait 检测到描述符事件发生并将此事件通知应用程序，应用程序必须立即处理该事件。 如果不处理，下次调用 epoll_wait 时，不会再次响应应用程序并通知此事件。</p>
-</li>
-</ol>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>操作系统教程第四版 - 高等教育出版社</p>
 <p><a href="https://snailclimb.gitee.io/javaguide/#/docs/operating-system/basis" target="_blank" rel="noopener">JavaGuide - 操作系统</a></p>
 <p><a href="https://www.cnblogs.com/Anker/p/3271773.html" target="_blank" rel="noopener">孤儿进程与僵尸进程总结</a></p>

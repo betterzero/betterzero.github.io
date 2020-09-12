@@ -179,7 +179,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12k 字
+      14.6k 字
     </span>
   
 
@@ -189,7 +189,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      128
+      156
        分钟
     </span>
   
@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年8月30日 晚上
+                  本文最后更新于：2020年9月13日 凌晨
                 
               </p>
             
@@ -253,6 +253,49 @@
 <li><p>深拷贝：对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容。</p>
 </li>
 </ul>
+<h4 id="Object-类中的方法"><a href="#Object-类中的方法" class="headerlink" title="Object 类中的方法"></a>Object 类中的方法</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashCode</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">equals</span><span class="hljs-params">(Object obj)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">this</span> == obj);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">native</span> Object <span class="hljs-title">clone</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> CloneNotSupportedException</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">return</span> getClass().getName() + <span class="hljs-string">"@"</span> + Integer.toHexString(hashCode());
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">void</span> <span class="hljs-title">notify</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">void</span> <span class="hljs-title">notifyAll</span><span class="hljs-params">()</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wait</span><span class="hljs-params">(<span class="hljs-keyword">long</span> timeout)</span> <span class="hljs-keyword">throws</span> InterruptedException</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wait</span><span class="hljs-params">(<span class="hljs-keyword">long</span> timeout, <span class="hljs-keyword">int</span> nanos)</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;
+    <span class="hljs-keyword">if</span> (timeout &lt; <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">"timeout value is negative"</span>);
+    &#125;
+
+    <span class="hljs-keyword">if</span> (nanos &lt; <span class="hljs-number">0</span> || nanos &gt; <span class="hljs-number">999999</span>) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(
+            <span class="hljs-string">"nanosecond timeout value out of range"</span>);
+    &#125;
+
+    <span class="hljs-keyword">if</span> (nanos &gt; <span class="hljs-number">0</span>) &#123;
+        timeout++;
+    &#125;
+
+    wait(timeout);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">wait</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> InterruptedException </span>&#123;
+    wait(<span class="hljs-number">0</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">finalize</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Throwable </span>&#123; &#125;</code></pre>
+
+
+
 <h4 id="重写与重载"><a href="#重写与重载" class="headerlink" title="重写与重载"></a>重写与重载</h4><ul>
 <li><p>重载（overload）：同一个方法根据输入数据的不同，做出不同的处理；</p>
 <ul>
@@ -463,7 +506,8 @@
 
 
 
-<h4 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h4><p>在工厂模式中，创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。</p>
+<h4 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h4><p>对照着这个<a href="https://www.runoob.com/w3cnote/factory-pattern.html" target="_blank" rel="noopener">参考资料1的代码示例</a> 和 <a href="https://www.runoob.com/design-pattern/factory-pattern.html" target="_blank" rel="noopener">参考资料2中的图</a> 理解工厂模式。</p>
+<p>在工厂模式中，创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。</p>
 <p>意图：定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。</p>
 <p>主要解决：接口选择的问题。</p>
 <p>何时使用：明确地计划不同条件下创建不同实例时。</p>
@@ -484,6 +528,43 @@
 <li>设计一个连接服务器的框架，需要三个协议，”POP3”、”IMAP”、”HTTP”，可以把这三个作为产品类，共同实现一个接口。</li>
 </ul>
 <p>注意事项：作为一种创建类模式，在任何需要生成复杂对象的地方，都可以使用工厂方法模式。有一点需要注意的地方就是复杂对象适合使用工厂模式，而简单对象，特别是只需要通过 new 就可以完成创建的对象，无需使用工厂模式。如果使用工厂模式，就需要引入一个工厂类，会增加系统的复杂度。</p>
+<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>在代理模式（Proxy Pattern）中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。代理模式创建具有现有对象的对象，以便向外界提供功能接口。</p>
+<p>意图：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p>主要解决：在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，可以在访问此对象时加上一个对此对象的访问层。</p>
+<p>何时使用：想在访问一个类时做一些控制。</p>
+<p>如何解决：增加中间层。</p>
+<p>关键代码：实现与被代理类组合。</p>
+<p>应用实例： </p>
+<ul>
+<li>Windows 里面的快捷方式；</li>
+<li>买火车票不一定在火车站买，也可以去代售点；</li>
+<li>一张支票或银行存单是账户中资金的代理。支票在市场交易中用来代替现金，并提供对签发人账号上资金的控制；</li>
+<li>Spring AOP。</li>
+</ul>
+<p>优点： </p>
+<ul>
+<li>职责清晰；</li>
+<li>高扩展性；</li>
+<li>智能化。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢；</li>
+<li>实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</li>
+</ul>
+<p>使用场景：按职责来划分，通常有以下使用场景： 1程代理。 2、虚拟代理。 3、Copy-on-Write 代理。 4、保护（Protect or Access）代理。 5、Cache代理。 6、防火墙（Firewall）代理。 7、同步化（Synchronization）代理。 8、智能引用（Smart Reference）代理。</p>
+<p>注意事项：</p>
+<ul>
+<li>和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口；</li>
+<li>和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。</li>
+</ul>
+<p>动态代理利用了JDK API，动态地在内存中构建代理对象，从而实现对目标对象的代理功能。动态代理又被称为 JDK 代理或接口代理。</p>
+<p>静态代理与动态代理的区别主要在：</p>
+<ul>
+<li>静态代理在编译时就已经实现，编译完成后代理类是一个实际的 class 文件;</li>
+<li>动态代理是在运行时动态生成的，即编译完成后没有实际的 class 文件，而是在运行时动态生成类字节码，并加载到 JVM 中。</li>
+</ul>
+<p>特点：动态代理对象不需要实现接口，但是要求目标对象必须实现接口，否则不能使用动态代理。</p>
 <h4 id="final、finally、-finalize"><a href="#final、finally、-finalize" class="headerlink" title="final、finally、 finalize"></a>final、finally、 finalize</h4><ul>
 <li>final 可以用来修饰类、方法、变量，分别有不同的意义，final 修饰的 class 代表不可以继承扩展，final 的变量是不可以修改的，而 final 的方法也是不可以重写的（override）；</li>
 <li>finally 则是 Java 保证重点代码一定要被执行的一种机制。可以使用 try-finally 或者 try-catch-finally 来进行类似关闭 JDBC 连接、保证 unlock 锁等动作；</li>
@@ -656,8 +737,46 @@
 <p>可以考虑使用 Java Compiler API，这是 JDK 提供的标准 API，里面提供了与 javac 对等的编译器功能，具体请参考java.compiler相关文档。</p>
 <p>进一步思考，一直围绕 Java 源码编译成为 JVM 可以理解的字节码，换句话说，只要是符合 JVM 规范的字节码，不管它是如何生成的，是不是都可以被 JVM 加载呢？能不能直接生成相应的字节码，然后交给类加载器去加载呢？</p>
 <p>当然也可以，不过直接去写字节码难度太大，通常可以利用 Java 字节码操纵工具和类库来实现，比如 ASM、Javassist、cglib 等。</p>
+<h4 id="select-与-epoll"><a href="#select-与-epoll" class="headerlink" title="select 与 epoll"></a>select 与 epoll</h4><p>这一块是IO多路复用下的知识。</p>
+<p><strong>I/O多路复用</strong></p>
+<p>IO 复用模型在阻塞 IO 模型上多了一个 select 函数，select 函数有一个参数是文件描述符集合，意思就是对这些的文件描述符进行循环监听，当某个文件描述符就绪的时候，就对这个文件描述符进行处理。</p>
+<p>这种 IO 模型是属于阻塞的 IO。 但是由于它可以对多个文件描述符进行阻塞监听，所以它的效率比阻塞 IO 模型高效。</p>
+<p>IO 多路复用就是我们说的 select，poll，epoll。 select/epoll 的好处就在于单个 process就可以同时处理多个网络连接的 IO。 它的基本原理就是 select，poll，epoll 这个 function 会不断的轮询所负责的所有 socket，当某个 socket 有数据到达了，就通知用户进程。</p>
+<p>当用户进程调用了 select，那么整个进程会被 block，而同时，kernel 会“监视”所有 select负责的 socket，当任何一个 socket 中的数据准备好了，select 就会返回。 这个时候用户进程再调用 read 操作，将数据从 kernel 拷贝到用户进程。</p>
+<p>所以，I/O 多路复用的特点是通过一种机制一个进程能同时等待多个文件描述符，而这些文件描述符（套接字描述符） 其中的任意一个进入读就绪状态，select()函数就可以返回。</p>
+<p>I/O 多路复用和阻塞 I/O 其实并没有太大的不同，事实上，还更差一些。 因为这里需要使用两个 system call (select 和 recvfrom)，而 blocking IO 只调用了一个 system call (recvfrom)。但是，用 select 的优势在于它可以同时处理多个 connection。</p>
+<p>所以，如果处理的连接数不是很高的话，使用 select/epoll 的 web server 不一定比使用multi-threading + blocking IO 的 web server 性能更好，可能延迟还更大。 select/epoll 的优势并不是对于单个连接能处理得更快，而是在于能处理更多的连接。 ）</p>
+<p>在 IO multiplexing Model 中，实际中，对于每一个 socket，一般都设置成为 non-blocking，但是，如上图所示，整个用户的 process 其实是一直被 block 的。 只不过 process 是被 select这个函数 block，而不是被 socket IO 给 block。</p>
+<p><strong>select</strong></p>
+<p>select：是最初解决IO阻塞问题的方法。用结构体 fd_set 来告诉内核监听多个文件描述符，该结构体被称为描述符集。 由数组来维持哪些描述符被置位了。 对结构体的操作封装在三个宏定义中。 通过轮寻来查找是否有描述符要被处理。</p>
+<p>存在的问题：</p>
+<ol>
+<li>内置数组的形式使得 select 的最大文件数受限与 FD_SIZE；</li>
+<li>每次调用 select 前都要重新初始化描述符集，将 fd 从用户态拷贝到内核态，每次调用select 后，都需要将 fd 从内核态拷贝到用户态；</li>
+<li>轮寻排查当文件描述符个数很多时，效率很低；</li>
+</ol>
+<p><strong>poll</strong></p>
+<p>poll：通过一个可变长度的数组解决了 select 文件描述符受限的问题。 数组中元素是结构体，该结构体保存描述符的信息，每增加一个文件描述符就向数组中加入一个结构体，结构体只需要拷贝一次到内核态。 poll 解决了 select 重复初始化的问题。 轮寻排查的问题未解决。</p>
+<p><strong>epoll</strong></p>
+<p>epoll：轮寻排查所有文件描述符的效率不高，使服务器并发能力受限。 因此，epoll 采用只返回状态发生变化的文件描述符，便解决了轮寻的瓶颈。</p>
+<p>epoll 对文件描述符的操作有两种模式：LT（level trigger） 和 ET（edge trigger） 。 LT模式是默认模式。</p>
+<ol>
+<li><p>LT 模式</p>
+<p>LT(level triggered)是缺省的工作方式，并且同时支持 block 和 no-block socket.在这种做法中，内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的 fd 进行 IO 操作。 如果你不作任何操作，内核还是会继续通知你的。</p>
+</li>
+<li><p>ET 模式</p>
+<p>ET(edge-triggered)是高速工作方式，只支持 no-block socket。 在这种模式下，当描述符从未就绪变为就绪时，内核通过 epoll 告诉你。 然后它会假设你知道文件描述符已经就绪，并且不会再为那个文件描述符发送更多的就绪通知，直到你做了某些操作导致那个文件描述符不再为就绪状态了(比如，你在发送，接收或者接收请求，或者发送接收的数据少于一定量时导致了一个 EWOULDBLOCK 错误） 。 但是请注意，如果一直不对这个 fd 作 IO 操作(从而导致它再次变成未就绪)，内核不会发送更多的通知(only once)</p>
+<p>ET 模式在很大程度上减少了 epoll 事件被重复触发的次数，因此效率要比 LT 模式高。 epoll工作在 ET 模式的时候，必须使用非阻塞套接口，以避免由于一个文件句柄的阻塞读/阻塞写操作把处理多个文件描述符的任务饿死。</p>
+</li>
+<li><p>LT 模式与 ET 模式的区别如下：</p>
+<p>LT 模式：当 epoll_wait 检测到描述符事件发生并将此事件通知应用程序，应用程序可以不立即处理该事件。 下次调用 epoll_wait 时，会再次响应应用程序并通知此事件。</p>
+<p>ET 模式：当 epoll_wait 检测到描述符事件发生并将此事件通知应用程序，应用程序必须立即处理该事件。 如果不处理，下次调用 epoll_wait 时，不会再次响应应用程序并通知此事件。</p>
+</li>
+</ol>
 <h4 id="数据原子性"><a href="#数据原子性" class="headerlink" title="数据原子性"></a>数据原子性</h4><p>数据的读写能否保证数据原子性。</p>
-<h4 id="读多写少场景下如何设计可以性能提升"><a href="#读多写少场景下如何设计可以性能提升" class="headerlink" title="读多写少场景下如何设计可以性能提升"></a>读多写少场景下如何设计可以性能提升</h4><h4 id="copy-on-write原则"><a href="#copy-on-write原则" class="headerlink" title="copy-on-write原则"></a>copy-on-write原则</h4><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>Head First Java - 第二版</p>
+<h4 id="读多写少场景下如何设计可以性能提升"><a href="#读多写少场景下如何设计可以性能提升" class="headerlink" title="读多写少场景下如何设计可以性能提升"></a>读多写少场景下如何设计可以性能提升</h4><h4 id="copy-on-write原则"><a href="#copy-on-write原则" class="headerlink" title="copy-on-write原则"></a>copy-on-write原则</h4><p>CopyOnWrite 的原理是：任何修改操作，如 add、set、remove，都会拷贝原数组，修改后替换原来的数组，通过这种防御性的方式，实现另类的线程安全。适合<strong>读多写少的操作</strong>，不然修改的开销是比较高的。</p>
+<p>这样做的好处在于，可以在并发的场景下对容器进行”读操作”而不需要”加锁”，从而达到读写分离的目的。从JDK 1.5 开始 Java 并发包里提供了两个使用 CopyOnWrite 机制实现的并发容器 ，分别是CopyOnWriteArrayList和CopyOnWriteArraySet 。CopyOnWriteArraySet 是通过包装了 CopyOnWriteArrayList 来实现的。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>Head First Java - 第二版</p>
 <p>JavaGuide</p>
 <p><a href="https://juejin.im/post/6844903847572275207" target="_blank" rel="noopener">深入探究Java中equals()和==的区别是什么</a></p>
 <p><a href="https://juejin.im/post/6844903853528186887" target="_blank" rel="noopener">详解Java中的字符串</a></p>
