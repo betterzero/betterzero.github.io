@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月13日 凌晨
+                  本文最后更新于：2020年9月20日 晚上
                 
               </p>
             
@@ -232,13 +232,13 @@
 
 
 <h1 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h1><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程是<strong>应用程序在内存中分配的空间，也就是正在运行的程序</strong>，各个进程之间互不干扰。同时进程保存着程序每一个时刻运行的状态。进程的出现，使操作系统的性能大大提升，但是如果一个进程在一段时间只执行一个任务，那么当进程有多个子任务时，只能逐个执行这些子任务，效率较低。</p>
-<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>为了提高 CPU 和 IO 设备的综合利用率，线程个概念被提出并应用。线程是一个比进程更小的执行单位，一个进程包含了多个线程，同类的多个线程共享进程的<strong>堆</strong>和<strong>方法区</strong>资源，而<strong>程序计数器</strong>、<strong>虚拟机栈</strong>和<strong>本地方法栈</strong>是私有的，每个线程负责一个单独的子任务。</p>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>为了提高 CPU 和 IO 设备的综合利用率，线程的概念被提出并应用。线程是一个比进程更小的执行单位，一个进程包含了多个线程，同类的多个线程共享进程的<strong>堆</strong>和<strong>方法区</strong>资源，而<strong>程序计数器</strong>、<strong>虚拟机栈</strong>和<strong>本地方法栈</strong>是私有的，每个线程负责一个单独的子任务。</p>
 <h2 id="进程和线程的异同"><a href="#进程和线程的异同" class="headerlink" title="进程和线程的异同"></a>进程和线程的异同</h2><ul>
 <li><p><strong>进程是操作系统进行资源分配的基本单位</strong>，<strong>线程是系统调度的最小单元</strong>；</p>
 </li>
 <li><p>线程是程序执行的最小单位，更加轻量级，线程间的切换和调度的成本远远小于进程。多线程可以在多核 CPU 上同时运行，减少了线程上下文切换的开销；</p>
 </li>
-<li><p>多线程并发编程是高并发系统的基础，好多线程机制可以提高系统整体的并发能力及性能；</p>
+<li><p>多线程并发编程是高并发系统的基础，多线程机制可以提高系统整体的并发能力及性能；</p>
 </li>
 <li><p>一个进程可以包含多个线程，线程作为任务的真正执行者，有<strong>自己的栈、寄存器、本地存储（Thread Local）</strong>等，但是会<strong>和进程内其他线程共享文件描述符、虚拟地址空间等</strong>；</p>
 </li>
@@ -310,7 +310,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="锁-与-synchronized"><a href="#锁-与-synchronized" class="headerlink" title="锁 与 synchronized"></a>锁 与 synchronized</h1><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>线程安全是一个多线程环境下<strong>正确性的概念</strong>，也就是保证多线程环境下<strong>共享的</strong>、<strong>可修改</strong>的<strong>状态</strong>的正确性，这里的状态反映在程序中其实可以看作是<strong>数据</strong>。换个角度来看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题。线程安全需要保证几个基本特性：</p>
+<h1 id="锁与synchronized"><a href="#锁与synchronized" class="headerlink" title="锁与synchronized"></a>锁与synchronized</h1><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>线程安全是一个多线程环境下<strong>正确性的概念</strong>，也就是保证多线程环境下<strong>共享的</strong>、<strong>可修改</strong>的<strong>状态</strong>的正确性，这里的状态反映在程序中其实可以看作是<strong>数据</strong>。换个角度来看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题。线程安全需要保证几个基本特性：</p>
 <ul>
 <li>原子性：相关操作不会中途被其他线程干扰，一般通过<strong>同步机制</strong>实现；</li>
 <li>可见性：一个线程修改了某个共享变量，其状态能够立即kong被其他线程知晓，通常被解释为<strong>将线程本地状态反映到主内存上</strong>，<strong>volatile</strong> 可以负责保证可见性的；</li>
@@ -357,30 +357,6 @@
 </ul>
 </li>
 <li>synchronized 和 ReentrantLock 的性能不能一概而论，早期版本 synchronized 在很多场景下性能相差较大，在后续版本进行了较多改进，在低竞争场景中表现可能优于 ReentrantLock；</li>
-</ul>
-<h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><p>当前的 Java 内存模型下，线程可以把变量保存<strong>本地内存</strong>中，而不是直接在主存中进行读写。这就可能造成一个线程在主存中修改了一个共享变量的值，而另外一个线程还继续使用它的本地内存中共享变量的副本，造成<strong>数据的不一致</strong>。</p>
-<p>注：在多个线程之间能够被共享的变量被称为共享变量。共享变量包括所有的实例变量，静态变量和数组元素。他们都被存放在堆内存中，volatile 只作用于共享变量。</p>
-<h2 id="volatile-定义"><a href="#volatile-定义" class="headerlink" title="volatile 定义"></a>volatile 定义</h2><p>java 编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致的更新，线程应该确保通过排他锁单独获得这个变量。Java 语言提供了 volatile，在某些情况下比锁更加方便。如果一个字段被声明成 volatile，java 线程内存模型确保所有线程看到这个变量的值是一致的。</p>
-<p>Volatile 是<strong>轻量级的 synchronized</strong>，它在多处理器开发中保证了共享变量的“<strong>可见性</strong>”。可见性指的是当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值。</p>
-<p>volatile可以保证可见性，有序性，但是不能保证原子性（原子性即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行）。</p>
-<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程池的优点"><a href="#线程池的优点" class="headerlink" title="线程池的优点"></a>线程池的优点</h2><p>池化技术的思想主要是为了减少每次获取资源的消耗，提高对资源的利用率。线程池提供了一种限制和管理资源的技术。 每个线程池维护一些基本统计信息，例如已完成任务的数量。</p>
-<ul>
-<li><strong>降低资源消耗</strong>：通过重复利用已创建的线程降低线程创建和销毁造成的消耗；</li>
-<li>*<em>提高响应速度 *</em>：当任务到达时，任务可以不需要的等待线程的创建就能立即执行；</li>
-<li><strong>提高线程的可管理性</strong>：线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控；</li>
-</ul>
-<h2 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h2><p>通常开发者可以利用 Executors 提供的通用线程池创建方法，创建不同配置的线程池，主要区别在于不同的 ExecutorService 类型或者不同的初始参数。Executors 目前提供了 5 种不同的线程池创建配置：</p>
-<ul>
-<li>newCachedThreadPool()：<strong>用来处理大量短时间工作任务的线程池</strong>，具有几个鲜明特点：它会试图缓存线程并重用，当无缓存线程可用时，就会创建新的工作线程；如果线程闲置的时间超过 60 秒，则被终止并移出缓存；长时间闲置时，这种线程池不会消耗什么资源。其内部使用 SynchronousQueue 作为工作队列；</li>
-<li>newFixedThreadPool(int nThreads)：<strong>重用指定数目（nThreads）的线程，底层使用的是无界的工作队列，任何时候最多有 nThreads 个工作线程是活动的</strong>。如果任务数量超过了活动队列数目，将在工作队列中等待空闲线程出现；如果有工作线程退出，将会有新的工作线程被创建，以补足指定的数目 nThreads；</li>
-<li>newSingleThreadExecutor()：<strong>工作线程数目被限制为 1</strong>，操作一个无界的工作队列，<strong>保证了所有任务的都是被顺序执行，最多会有一个任务处于活动状态</strong>，并且不允许使用者改动线程池实例，因此可以避免其改变线程数目；</li>
-<li>newSingleThreadScheduledExecutor() 和 newScheduledThreadPool(int corePoolSize)：创建的是个 ScheduledExecutorService，可以进行<strong>定时或周期性的工作调度</strong>，区别在于单一工作线程还是多个工作线程；</li>
-<li>newWorkStealingPool(int parallelism)：Java 8 加入这个创建方法，内部会构建ForkJoinPool，利用Work-Stealing算法，<strong>并行地处理任务，不保证处理顺序</strong>；</li>
-</ul>
-<p>注：</p>
-<ul>
-<li>newFixedThreadPool 和 newSingleThreadExecutor：允许请求的队列长度为 Integer.MAX_VALUE ，可能堆积大量的请求，从而导致OOM。</li>
-<li>newCachedThreadPool 和 newScheduledThreadPool：允许创建的线程数量为 Integer.MAX_VALUE ，可能会创建大量线程，从而导致OOM。</li>
 </ul>
 <h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>参考资料：<a href="https://www.jianshu.com/p/377bb840802f" target="_blank" rel="noopener">占小狼 - ThreadLocal</a> 和 <a href="https://www.jianshu.com/p/30ee77732843" target="_blank" rel="noopener">并发容器之ThreadLocal</a>。</p>
 <p><img src="ThreadLocal.PNG" srcset="/img/loading.gif" alt=""></p>
@@ -558,10 +534,30 @@ String name = localName.get();</code></pre>
 
 
 
-
-
-
-
+<h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><p>当前的 Java 内存模型下，线程可以把变量保存<strong>本地内存</strong>中，而不是直接在主存中进行读写。这就可能造成一个线程在主存中修改了一个共享变量的值，而另外一个线程还继续使用它的本地内存中共享变量的副本，造成<strong>数据的不一致</strong>。</p>
+<p>注：在多个线程之间能够被共享的变量被称为共享变量。共享变量包括所有的实例变量，静态变量和数组元素。他们都被存放在堆内存中，volatile 只作用于共享变量。</p>
+<h2 id="volatile-定义"><a href="#volatile-定义" class="headerlink" title="volatile 定义"></a>volatile 定义</h2><p>java 编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致的更新，线程应该确保通过排他锁单独获得这个变量。Java 语言提供了 volatile，在某些情况下比锁更加方便。如果一个字段被声明成 volatile，java 线程内存模型确保所有线程看到这个变量的值是一致的。</p>
+<p>Volatile 是<strong>轻量级的 synchronized</strong>，它在多处理器开发中保证了共享变量的“<strong>可见性</strong>”。可见性指的是当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值。</p>
+<p>volatile可以保证可见性，有序性，但是不能保证原子性（原子性即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行）。</p>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程池的优点"><a href="#线程池的优点" class="headerlink" title="线程池的优点"></a>线程池的优点</h2><p>池化技术的思想主要是为了减少每次获取资源的消耗，提高对资源的利用率。线程池提供了一种限制和管理资源的技术。 每个线程池维护一些基本统计信息，例如已完成任务的数量。</p>
+<ul>
+<li><strong>降低资源消耗</strong>：通过重复利用已创建的线程降低线程创建和销毁造成的消耗；</li>
+<li>*<em>提高响应速度 *</em>：当任务到达时，任务可以不需要的等待线程的创建就能立即执行；</li>
+<li><strong>提高线程的可管理性</strong>：线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控；</li>
+</ul>
+<h2 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h2><p>通常开发者可以利用 Executors 提供的通用线程池创建方法，创建不同配置的线程池，主要区别在于不同的 ExecutorService 类型或者不同的初始参数。Executors 目前提供了 5 种不同的线程池创建配置：</p>
+<ul>
+<li>newCachedThreadPool()：<strong>用来处理大量短时间工作任务的线程池</strong>，具有几个鲜明特点：它会试图缓存线程并重用，当无缓存线程可用时，就会创建新的工作线程；如果线程闲置的时间超过 60 秒，则被终止并移出缓存；长时间闲置时，这种线程池不会消耗什么资源。其内部使用 SynchronousQueue 作为工作队列；</li>
+<li>newFixedThreadPool(int nThreads)：<strong>重用指定数目（nThreads）的线程，底层使用的是无界的工作队列，任何时候最多有 nThreads 个工作线程是活动的</strong>。如果任务数量超过了活动队列数目，将在工作队列中等待空闲线程出现；如果有工作线程退出，将会有新的工作线程被创建，以补足指定的数目 nThreads；</li>
+<li>newSingleThreadExecutor()：<strong>工作线程数目被限制为 1</strong>，操作一个无界的工作队列，<strong>保证了所有任务的都是被顺序执行，最多会有一个任务处于活动状态</strong>，并且不允许使用者改动线程池实例，因此可以避免其改变线程数目；</li>
+<li>newSingleThreadScheduledExecutor() 和 newScheduledThreadPool(int corePoolSize)：创建的是个 ScheduledExecutorService，可以进行<strong>定时或周期性的工作调度</strong>，区别在于单一工作线程还是多个工作线程；</li>
+<li>newWorkStealingPool(int parallelism)：Java 8 加入这个创建方法，内部会构建ForkJoinPool，利用Work-Stealing算法，<strong>并行地处理任务，不保证处理顺序</strong>；</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>newFixedThreadPool 和 newSingleThreadExecutor：允许请求的队列长度为 Integer.MAX_VALUE ，可能堆积大量的请求，从而导致OOM。</li>
+<li>newCachedThreadPool 和 newScheduledThreadPool：允许创建的线程数量为 Integer.MAX_VALUE ，可能会创建大量线程，从而导致OOM。</li>
+</ul>
 <h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>《阿里巴巴Java开发手册》中强制线程池不允许使用 Executors 去创建，而是通过 ThreadPoolExecutor 的方式，这样的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。</p>
 <h3 id="线程池创建"><a href="#线程池创建" class="headerlink" title="线程池创建"></a>线程池创建</h3><p>可以通过 ThreadPoolExecutor 创建一个线程池。</p>
 <pre><code class="hljs java"><span class="hljs-keyword">new</span>  ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, milliseconds,runnableTaskQueue, handler);</code></pre>
