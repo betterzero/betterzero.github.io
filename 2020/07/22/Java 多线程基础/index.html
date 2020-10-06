@@ -542,7 +542,7 @@ String name = localName.get();</code></pre>
 <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程池的优点"><a href="#线程池的优点" class="headerlink" title="线程池的优点"></a>线程池的优点</h2><p>池化技术的思想主要是为了减少每次获取资源的消耗，提高对资源的利用率。线程池提供了一种限制和管理资源的技术。 每个线程池维护一些基本统计信息，例如已完成任务的数量。</p>
 <ul>
 <li><strong>降低资源消耗</strong>：通过重复利用已创建的线程降低线程创建和销毁造成的消耗；</li>
-<li>*<em>提高响应速度 *</em>：当任务到达时，任务可以不需要的等待线程的创建就能立即执行；</li>
+<li><strong>提高响应速度</strong>：当任务到达时，任务可以不需要等待线程的创建就能立即执行；</li>
 <li><strong>提高线程的可管理性</strong>：线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控；</li>
 </ul>
 <h2 id="Executors"><a href="#Executors" class="headerlink" title="Executors"></a>Executors</h2><p>通常开发者可以利用 Executors 提供的通用线程池创建方法，创建不同配置的线程池，主要区别在于不同的 ExecutorService 类型或者不同的初始参数。Executors 目前提供了 5 种不同的线程池创建配置：</p>
