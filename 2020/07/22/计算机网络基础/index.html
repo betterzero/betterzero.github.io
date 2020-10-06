@@ -221,7 +221,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年9月10日 早上
+                  本文最后更新于：2020年9月28日 晚上
                 
               </p>
             
@@ -231,7 +231,7 @@
 
 
 
-<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>本文主要在 <a href="https://krahets.gitee.io/" target="_blank" rel="noopener">Krahets’s Blog</a> 的 <a href="https://krahets.gitee.io/views/computer-network/2019-09-18-post-computer-network.html" target="_blank" rel="noopener">计算机网络学习笔记</a> 基础上，结合自己的理解做了一些补充，增加应用层的部分内容，形成的一个版本。</p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>本文主要在 <a href="https://krahets.gitee.io/" target="_blank" rel="noopener">Krahet’s Blog</a> 的 <a href="https://krahets.gitee.io/views/computer-network/2019-09-18-post-computer-network.html" target="_blank" rel="noopener">计算机网络学习笔记</a> 基础上，结合自己的理解做了一些补充，增加应用层的部分内容，形成的一个版本。</p>
 <h1 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a>计算机网络体系结构</h1><h2 id="具有五层协议的体系结构"><a href="#具有五层协议的体系结构" class="headerlink" title="具有五层协议的体系结构"></a>具有五层协议的体系结构</h2><ul>
 <li>OSI 七层协议体系概念清楚，理论也较完整，但它既复杂又不实用；</li>
 <li>五层协议体系结构综合 OSI 和 TCP/IP 优点，简洁又能将概念阐释清楚。</li>
@@ -1077,7 +1077,7 @@
 </ul>
 <p><img src="%E6%85%A2%E5%BC%80%E5%A7%8B.jpg" srcset="/img/loading.gif" alt=""></p>
 </li>
-<li><p><strong>拥塞避免</strong>：让拥塞窗口 cwnd 缓慢增大，即没经过一个往返时间 RTT 就把发送方的拥塞窗口 cwnd 加 1 ，而不是像慢开始阶段那样加倍增长，使网络比较不容易出现拥塞。</p>
+<li><p><strong>拥塞避免</strong>：让拥塞窗口 cwnd 缓慢增大，即每经过一个往返时间 RTT 就把发送方的拥塞窗口 cwnd 加 1 ，而不是像慢开始阶段那样加倍增长，使网络比较不容易出现拥塞。</p>
 <ul>
 <li><strong>当 cwnd &lt; ssthresh 时</strong>，使用慢开始算法；<strong>当 cwnd &gt; ssthresh 时</strong>，使用拥塞避免算法。</li>
 <li>网络出现超时，发送方判断网络拥塞，于是调整门限值 <strong>ssthresh = cwnd / 2，cwnd = 1</strong>，并进入慢开始阶段；当逐渐增大到 <strong>ssthresh = cwnd</strong> 时，进入拥塞避免阶段。</li>
@@ -1132,7 +1132,7 @@
 <li>若 B 已经将所有数据向 A 发送完毕，则向 A 发送 TCP 连接释放报文，并进入 <strong>LAST-ACK</strong> 状态，<strong>等待 A 的确认</strong>；</li>
 <li>A 收到 B 的连接释放报文段后，立即发出确认，然后进入TIME-WAIT状态，必须经过时间等待计时器设置的时间 2MSL(4 min) 后，A 才进入 CLOSED 状态，这是因为：<ul>
 <li><strong>第一：</strong> 由于 A 到 B 的确认报文段有可能丢失，B 可能回超时重传释放连接报文段，而 A 就能在 2MSL 时间内收到这个重传的连接释放报文段，并重传确认且重新启动 2MSL 计时器。</li>
-<li><strong>第二：</strong> 防止<strong>“已失效的连接请求报文段”</strong>出现在本连接中， A 等待 2MSL 就可以使本链接持续时间内所产生的所有报文段在网络中小时。</li>
+<li><strong>第二：</strong> 防止<strong>“已失效的连接请求报文段”</strong>出现在本连接中， A 等待 2MSL 就可以使本链接持续时间内所产生的所有报文段在网络中消失。</li>
 </ul>
 </li>
 </ol>
